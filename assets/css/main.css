@@ -1,0 +1,107 @@
+h1 { font-size: 25px; }
+h2 { font-size: 23px; }
+h3 { font-size: 21px; }
+h4 { font-size: 19px; }
+h5 { font-size: 17px; }
+h6 { font-size: 15px; }
+p, dl, hr, h1, h2, h3, h4, h5, h6, ol, ul, pre, table, address, fieldset { margin-bottom: 20px; }
+ol { list-style: decimal; }
+ul { list-style: square; }
+li { margin-left: 30px; }
+a { text-decoration: none; }
+a:link { color: #fd1b14; }
+a:visited { color: #fa1811; }
+a:hover { color: #ff6c50; }
+a:active { color: #fd1b14; }
+.w50 { width: 50%; }
+.w33 { width: 33.33%; }
+.block {
+  float: left;
+  display: inline;
+  *margin-left: -0.04em;
+}
+.serif-stack {
+  font-family: "Berthold Baskerville", Baskerville, Georgia, serif;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+.sans-serif-stack { font-family: Helvetica, "Helvetica LT Std", Georgia; }
+.left-padding { padding-left: 10px; }
+body {
+  background: #eeecde;
+  color: #222222;
+  font-size: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Berthold Baskerville", Baskerville, Georgia, serif;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+#main {
+  margin: 0 auto;
+  width: 85%;
+}
+#header {
+  background: #222222;
+  padding: 0 0 10px 20px;
+  margin-bottom: 0;
+}
+#header h1 {
+  font-size: 39px;
+  color: #fd1b14;
+  font-family: Helvetica, "Helvetica LT Std", Georgia;
+  padding-top: 20px;
+}
+#top-nav {
+  background-color: #0b0b0b;
+  margin-bottom: 20px;
+}
+#top-nav ul {
+  list-style-type: none;
+  margin-bottom: 0;
+  padding: 10px 0;
+}
+#top-nav ul li {
+  margin-left: 20px;
+  margin-right: 10px;
+  float: left;
+}
+ol.skills { margin-bottom: 0; }
+ol.skills li {
+  float: none;
+  display: block;
+  margin: auto;
+  width: auto;
+}
+.user-list div {
+  width: 33.33%;
+  float: left;
+  display: inline;
+  *margin-left: -0.04em;
+  margin-bottom: 20px;
+}
+#content {
+  background-color: #ffffff;
+  padding: 10px;
+}
+#content h2 {
+  background: #f0f7da url(../img/head-bg.jpg);
+  padding: 10px 0 10px 10px;
+  margin-bottom: 0;
+}
+#content h3 { padding-left: 10px; }
+#content ol { padding-left: 10px; }
+#inner {
+  background: #f0f7da;
+  padding-top: 20px;
+}
+.clearfix:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+}
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }

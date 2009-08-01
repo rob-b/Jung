@@ -1,0 +1,192 @@
+/* heading sizes */
+@h1_font_size: 25px;
+h1 {
+    font-size: @h1_font_size;
+}
+h2 {
+    font-size: @h1_font_size - 2;
+}
+
+h3 {
+    font-size: @h1_font_size - 4;
+}
+
+h4 {
+    font-size: @h1_font_size - 6;
+}
+
+h5 {
+    font-size: @h1_font_size - 8;
+}
+
+h6 {
+    font-size: @h1_font_size - 10;
+}
+
+
+/* some spacing for block level elements */
+p,
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset
+{
+    margin-bottom: 20px;
+}
+
+/* default list styling */
+ol {
+    list-style: decimal;
+}
+
+ul {
+    list-style: square;
+}
+
+li {
+    margin-left: 30px;
+}
+
+/* default link styles */
+a { text-decoration: none; }
+a:link { color: @accent;}
+a:visited { color: @accent - 3;}
+a:hover { color: @accent * 4 }
+a:active { color: @accent;}
+
+/* constant values */
+@background: #eeecde;
+@header_background: #222;
+@accent: #fd1b14;
+@main_text: #222;
+
+/* mixin classes */
+.w50 { width: 50%; }
+.w33 { width: 33.33%; }
+.block {
+    float: left;
+    display: inline;
+    *margin-left: -0.04em;
+}
+.serif-stack {
+    font-family: "Berthold Baskerville", Baskerville, Georgia, serif;
+    font-weight: normal;
+    letter-spacing: 1px;
+}
+.sans-serif-stack {
+    /* font-family:Helvetica, Arial, Tahoma, sans-serif; */
+    font-family:Helvetica, "Helvetica LT Std", Georgia;
+}
+.left-padding { padding-left: 10px; }
+
+/* styles */
+ 
+body {
+    background: @background;
+    color: @main_text;
+    font-size: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   .serif-stack;
+}
+
+/* main container */
+#main {
+    margin: 0 auto;
+    width: 85%;
+}
+
+#header {
+    background: @header_background ;
+    padding: 0 0 10px 20px;
+    margin-bottom: 0;
+}
+#header h1 {
+    font-size: 39px;
+    color: @accent;
+    .sans-serif-stack;
+    padding-top: 20px;
+}
+
+#top-nav {
+    background-color: @header_background / 3;
+    margin-bottom: 20px;
+}
+#top-nav ul {
+    list-style-type: none;
+    margin-bottom: 0;
+    padding: 10px 0;
+}
+#top-nav ul li {
+    margin-left: 20px;
+    margin-right: 10px;
+    float:left;
+}
+
+
+ol.skills {
+    margin-bottom: 0;
+}
+ol.skills li {
+    float: none;
+    display: block;
+    margin: auto;
+    width: auto;
+}
+.user-list div {
+    .w33;
+    .block;
+    margin-bottom: 20px;
+}
+
+#content {
+    background-color: #fff;
+    padding: 10px;
+}
+
+#content h2 {
+    background: #f0f7da url(../img/head-bg.jpg);
+    padding: 10px 0 10px 10px;
+    margin-bottom: 0;
+}
+#content h3,
+#content ol {
+    padding-left: 10px;
+}
+
+#inner {
+    background: #f0f7da ;
+    padding-top: 20px;
+}
+
+/* http://www.positioniseverything.net/easyclearing.html */
+.clearfix:after {
+    clear: both;
+    content: '.';
+    display: block;
+    visibility: hidden;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+.clearfix {
+    display: block;
+}
