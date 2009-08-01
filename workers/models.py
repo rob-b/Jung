@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from hostel.storage import AttachmentStorage
+import os.path
 
 def rename_avatar(instance, filename):
     username = instance.user.username
-    import ipdb; ipdb.set_trace();
-    filename = Path(filename)
-    filename = filename.replace(filename.stem, username)
-    return Path('avatars', filename)
+    stem, ext = os.path.splitext(filename)
+    filename = filename.replace(stem, username)
+    return os.path.join('avatars', filename)
 
 class Employee(models.Model):
 
