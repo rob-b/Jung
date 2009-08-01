@@ -14,6 +14,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'django.views.generic.simple.direct_to_template',
+        {'template': 'base.html'},
+        name='home_page'),
 )
 
 from django.conf import settings
