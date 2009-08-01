@@ -12,16 +12,20 @@ def rename_avatar(instance, filename):
 class Employee(models.Model):
 
     user = models.ForeignKey('auth.User', verbose_name=_('User'), unique=True)
-    skill = models.ManyToManyField('Skill', verbose_name=_('Skill'))
-    avatar = models.ImageField(_('You can upload an avatar image'),
+    skill = models.ManyToManyField('Skill', verbose_name=_('Skill'),
+                                   blank=False, null=True)
+    avatar = models.ImageField(_('Avatar'),
                                blank=True,
                                default='avatars/default.jpg',
                                upload_to=rename_avatar,
                                storage=AttachmentStorage(overwrite=True),)
 
+    def __unicode__(self):
+        return _('Employee profile for %s') % self.user.username
+
 
 class Skill(models.Model):
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=150, unique=True)
     description = models.TextField()
 
     def __unicode__(self):
