@@ -30,11 +30,3 @@ if settings.DEBUG:
          {'document_root': settings.ATTACHMENT_ROOT,
           'show_indexes': True}),
 )
-
-from workers import models
-from django.contrib import databrowse
-databrowse.site.register(models.Employee)
-databrowse.site.register(models.Skill)
-urlpatterns += patterns('',
-    (r'^databrowse/(.*)', databrowse.site.root),
-)
