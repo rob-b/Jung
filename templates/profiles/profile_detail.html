@@ -1,27 +1,40 @@
 {% extends 'profiles/base.html' %}
 
-{% load i18n thumbnail %}
+{% load i18n thumbnail tags %}
+
+{% block title %}{{ profile.user.get_full_name }}{% endblock %}
             {% block content %}
             <div id="content">
                 <h2>{% trans 'Employee Detail' %}</h2>
                 <div class="user-detail clearfix" id="inner">
                     <div>
-                        <img src="{% thumbnail profile.avatar 100x100 autocrop,crop,upscale %}">
-                        <div id="hcard-{{ profile.user.first_name }}-{{ profile.user.last_name }}" class="vcard">
+                        <div id="hcard-{{ profile.user.first_name }}-{{ profile.user.last_name }}" class="clearfix vcard">
+                            <img src="{% thumbnail profile.avatar 100x100 autocrop,crop,upscale %}">
                             <h3 class="fn">{{ profile.user.get_full_name }}</h3>
-                            <a class="email" href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a>
-                            <a class="url" href="xmpp:foo@place.com">Jabber</a>
+                            <ul>
+                                <li>
+                                    {{ profile.user.email|obfuscate:"Email"}}
+                                </li>
+                                <li>
+                                    <a class="url" href="xmpp:foo@place.com">
+                                        Jabber
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
+                    </div>
 
-                        <h4>{% trans 'Skills' %}</h4>
+                    <div>
+                        <h3>{% trans 'Skills' %}</h3>
                         <ol class="skills">
                             {% for skill in profile.skill.all %}
                             <li>{{ skill }}</li>
                             {% empty %}
-                            <li>{% trans 'unskilled (Management}' %}</li>
+                            <li>{% trans 'unskilled (Management)' %}</li>
                             {% endfor %}
                         </ol>
                     </div>
+                    <hr>
                 </div>
             </div>
             {% endblock content %}
