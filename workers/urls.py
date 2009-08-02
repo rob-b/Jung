@@ -14,6 +14,6 @@ urlpatterns = patterns('',
        views.profile_detail,
        name='profiles_profile_detail'),
     url(r'^$',
-       'workers.views.employee_list',
+       views.profile_list,
        name='workers_employee_list'),
 )
