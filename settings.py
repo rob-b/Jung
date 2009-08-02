@@ -86,6 +86,7 @@ INSTALLED_APPS = (
     'workers',
     'sorl.thumbnail',
     'typogrify',
+    'django_extensions',
 )
 
 try:
