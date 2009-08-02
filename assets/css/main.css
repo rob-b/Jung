@@ -55,6 +55,8 @@ h1, h2, h3, h4, h5, h6 {
 #top-nav {
   background-color: #0b0b0b;
   margin-bottom: 20px;
+  -moz-box-shadow: 0px 8px 8px -5px #999999;
+  box-shadow: 0px 8px 8px -5px #999999;
 }
 #top-nav ul {
   list-style-type: none;
@@ -80,6 +82,10 @@ ol.skills li {
   *margin-left: -0.04em;
   margin-bottom: 20px;
 }
+.user-detail div {
+  margin-bottom: 20px;
+  padding-left: 10px;
+}
 #content {
   background-color: #ffffff;
   padding: 10px;
@@ -89,8 +95,21 @@ ol.skills li {
   padding: 10px 0 10px 10px;
   margin-bottom: 0;
 }
-#content h3 { padding-left: 10px; }
-#content ol { padding-left: 10px; }
+.user-list h3 { padding-left: 10px; }
+.user-list ol { padding-left: 10px; }
+.user-list h3 img { vertical-align: middle; }
+.user-detail img {
+  background: #ffffff;
+  padding: 3px;
+  border: 1px solid;
+  border-color: #d3d3d3;
+}
+.user-list img {
+  background: #ffffff;
+  padding: 3px;
+  border: 1px solid;
+  border-color: #d3d3d3;
+}
 #inner {
   background: #f0f7da;
   padding-top: 20px;

@@ -4,10 +4,16 @@
             {% block content %}
             <div id="content">
                 <h2>{% trans 'Employee Detail' %}</h2>
-                <div class="user-list clearfix" id="inner">
+                <div class="user-detail clearfix" id="inner">
                     <div>
-                        <h3>{{ profile.user.username }}</h3>
-                        <img src="{% thumbnail profile.avatar 100x100 %}">
+                        <img src="{% thumbnail profile.avatar 100x100 autocrop,crop,upscale %}">
+                        <div id="hcard-{{ profile.user.first_name }}-{{ profile.user.last_name }}" class="vcard">
+                            <h3 class="fn">{{ profile.user.get_full_name }}</h3>
+                            <a class="email" href="mailto:{{ profile.user.email }}">{{ profile.user.email }}</a>
+                            <a class="url" href="xmpp:foo@place.com">Jabber</a>
+                        </div>
+
+                        <h4>{% trans 'Skills' %}</h4>
                         <ol class="skills">
                             {% for skill in profile.skill.all %}
                             <li>{{ skill }}</li>
