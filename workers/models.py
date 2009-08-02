@@ -19,6 +19,7 @@ class Employee(models.Model):
                                default='avatars/default.jpg',
                                upload_to=rename_avatar,
                                storage=AttachmentStorage(overwrite=True),)
+    role = models.ForeignKey('Role', verbose_name=_('Role'), unique=True)
 
     def __unicode__(self):
         return _('Employee profile for %s') % self.user.username
@@ -29,6 +30,13 @@ class Employee(models.Model):
 
 
 class Skill(models.Model):
+    title = models.CharField(max_length=150, unique=True)
+    description = models.TextField()
+
+    def __unicode__(self):
+        return self.title
+
+class Role(models.Model):
     title = models.CharField(max_length=150, unique=True)
     description = models.TextField()
 

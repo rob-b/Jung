@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-from models import Employee, Skill
+import models
 
 class EmployeeAdmin(admin.StackedInline):
-    model = Employee
+    model = models.Employee
     fk_name = 'user'
     max_num = 1
     verbose_name = 'profile'
@@ -27,4 +27,5 @@ class EmployeeUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, EmployeeUserAdmin)
-admin.site.register(Skill)
+admin.site.register(models.Skill)
+admin.site.register(models.Role)
