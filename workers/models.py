@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.conf import settings
 from hostel.storage import AttachmentStorage
+from hostel.models import MarkdownField
+from django_extensions.db.fields import AutoSlugField
 import os.path
 
 def rename_avatar(instance, filename):
@@ -50,14 +52,20 @@ class Employee(models.Model):
 
 class Skill(models.Model):
     title = models.CharField(max_length=150, unique=True)
-    description = models.TextField()
+    description = MarkdownField()
+    slug = AutoSlugField(editable=True, populate_from='title')
 
     def __unicode__(self):
         return self.title
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('workers_skill_detail', (self.title,))
+
 class Role(models.Model):
     title = models.CharField(max_length=150, unique=True)
-    description = models.TextField()
+    description = MarkdownField()
+    slug = AutoSlugField(editable=True, populate_from='title')
 
     def __unicode__(self):
         return self.title
