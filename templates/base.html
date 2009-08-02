@@ -17,10 +17,15 @@
             </div>
             <div id="top-nav" class="round">
                 <ul class="clearfix">
-                    <li><a href="">Employees</a></li>
+                    <li>
+                        <a href="{% url workers_employee_list %}">
+                            {% trans 'Employees' %}
+                        </a>
+                    </li>
                     <li><a href="">Projects</a></li>
                 </ul>
             </div>
+            {% block content %}
             <div id="content">
                 <h2>{% trans 'Employees' %}</h2>
                 <div class="user-list clearfix" id="inner">
@@ -62,6 +67,7 @@
                     </div>
                 </div>
             </div>
+            {% endblock content %}
         </div>
     </body>
 </html>

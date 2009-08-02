@@ -1,0 +1,21 @@
+{% extends 'profiles/base.html' %}
+
+{% load i18n thumbnail %}
+            {% block content %}
+            <div id="content">
+                <h2>{% trans 'Employee Detail' %}</h2>
+                <div class="user-list clearfix" id="inner">
+                    <div>
+                        <h3>{{ profile.user.username }}</h3>
+                        <img src="{% thumbnail profile.avatar 100x100 %}">
+                        <ol class="skills">
+                            {% for skill in profile.skill.all %}
+                            <li>{{ skill }}</li>
+                            {% empty %}
+                            <li>{% trans 'unskilled (Management}' %}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            {% endblock content %}

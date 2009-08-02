@@ -23,6 +23,10 @@ class Employee(models.Model):
     def __unicode__(self):
         return _('Employee profile for %s') % self.user.username
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('profiles_profile_detail', (self.user.username,))
+
 
 class Skill(models.Model):
     title = models.CharField(max_length=150, unique=True)

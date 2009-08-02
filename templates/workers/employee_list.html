@@ -1,0 +1,22 @@
+{% extends 'workers/base.html' %}
+{% load i18n %}
+            {% block content %}
+            <div id="content">
+                <h2>{% trans 'Employees' %}</h2>
+                <div class="user-list clearfix" id="inner">
+                    {% for object in object_list %}
+                    <div>
+                        <h3><a href="{{ object.get_absolute_url }}">{{ object.user.username }}</a></h3>
+                        <ol class="skills">
+                            {% for skill in object.skill.all %}
+                            <li>{{ skill }}</li>
+                            {% empty %}
+                            <li>{% trans 'unskilled (Management}' %}</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endblock content %}
+
