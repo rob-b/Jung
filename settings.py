@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'hostel',
     'workers',
     'sorl.thumbnail',
+    'typogrify',
 )
 
 try:
