@@ -2,6 +2,10 @@ from django.conf.urls.defaults import *
 from profiles import views
 
 urlpatterns = patterns('',
+    (r'^skills/', include('workers.urls.skills')),
+)
+
+urlpatterns += patterns('',
     url(r'^create/$',
        views.create_profile,
        name='profiles_create_profile'),
@@ -17,3 +21,4 @@ urlpatterns = patterns('',
        views.profile_list,
        name='workers_employee_list'),
 )
+
