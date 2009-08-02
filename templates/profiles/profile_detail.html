@@ -28,7 +28,7 @@
                         <h3>{% trans 'Skills' %}</h3>
                         <ol class="skills">
                             {% for skill in profile.skill.all %}
-                            <li>{{ skill }}</li>
+                            <li><a href="{{ skill.get_absolute_url }}">{{ skill }}</a></li>
                             {% empty %}
                             <li>{% trans 'unskilled (Management)' %}</li>
                             {% endfor %}
