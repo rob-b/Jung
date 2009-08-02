@@ -5,8 +5,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^jung/', include('jung.foo.urls')),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
@@ -17,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^$', 'django.views.generic.simple.direct_to_template',
         {'template': 'base.html'},
         name='home_page'),
+    (r'^employees/', include('workers.urls')),
 )
 
 from django.conf import settings
