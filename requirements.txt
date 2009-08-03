@@ -5,3 +5,5 @@ smartypants
 -e svn+http://svn.aeracode.org/svn/south/trunk#egg=south
 django-registration
 django-profiles
+BeautifulSoup
+Markdown
