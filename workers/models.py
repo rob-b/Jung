@@ -69,7 +69,7 @@ class Skill(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('workers_skill_detail', (self.title,))
+        return ('workers_skill_detail', (self.slug,))
 
 class Role(models.Model):
     title = models.CharField(max_length=150, unique=True)
