@@ -57,6 +57,7 @@ li {
     margin-left: 30px;
 }
 
+
 /* default link styles */
 a { text-decoration: none; }
 a:link { color: @accent;}
@@ -100,6 +101,7 @@ body {
 
     .sans-serif-stack;
 }
+
 
 h1, h2, h3, h4, h5, h6 {
    .serif-stack;
@@ -183,6 +185,7 @@ ol.skills li {
     background: #f0f7da url(../img/head-bg.jpg);
     padding: 10px 0 10px 10px;
     margin-bottom: 0;
+    border-bottom: 1px solid #fff;
 }
 #content hr {
     border: none;
@@ -235,6 +238,19 @@ div.vcard {
 .note {
     font-size: 0.8em;
     color: @light_text;
+}
+
+/* lists */
+/*
+to style the numbers of <ol> lists we make the <li> serif but must ensure all
+contents are wrapped in some serif styled elem 
+ */
+ol li {
+    .serif-stack;
+}
+ol li a {
+    .sans-serif-stack;
+    letter-spacing: normal;
 }
 
 /* http://www.positioniseverything.net/easyclearing.html */

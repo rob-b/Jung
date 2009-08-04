@@ -115,6 +115,7 @@ ol.skills li {
   background: #f0f7da url(../img/head-bg.jpg);
   padding: 10px 0 10px 10px;
   margin-bottom: 0;
+  border-bottom: 1px solid #ffffff;
 }
 #content hr {
   border: none;
@@ -153,6 +154,15 @@ div.vcard { margin-bottom: 20px; }
 .note {
   font-size: 0.8em;
   color: #636363;
+}
+ol li {
+  font-family: "Berthold Baskerville", Baskerville, Georgia, serif;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+ol li a {
+  font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
+  letter-spacing: normal;
 }
 .clearfix:after {
   clear: both;
