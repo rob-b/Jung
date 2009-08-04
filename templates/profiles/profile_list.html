@@ -1,5 +1,5 @@
 {% extends 'profiles/base.html' %}
-{% load i18n thumbnail typogrify %}
+{% load i18n thumbnail typogrify tags %}
             {% block content %}
             <div id="content">
                 <h2>{% trans 'Employees' %}</h2>
@@ -9,7 +9,7 @@
                         <img alt="" src="{% thumbnail object.avatar 50x50 autocrop,crop,upscale %}">
                         <h3>
                             <a href="{{ object.get_absolute_url }}">
-                                {{ object.full_name }}
+                                {{ object.full_name|truncatestring:"18"|typogrify }}
                             </a>
                         </h3>
                         <h3>
