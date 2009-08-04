@@ -49,6 +49,12 @@ class Employee(models.Model):
     def get_absolute_url(self):
         return ('profiles_profile_detail', (self.user.username,))
 
+    def full_name(self):
+        full_name = self.user.get_full_name()
+        if full_name:
+            return full_name
+        return self.user.username
+
     class Meta:
         ordering = ['user__last_name', 'user__username']
 
