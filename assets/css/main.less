@@ -69,7 +69,8 @@ a:active { color: @accent;}
 @header_background: #222;
 @accent: #fd1b14;
 @main_text: #222;
-@light_text: #d3d3d3;
+@light_text: #636363;
+@highlight: #d3d3d3;
 
 /* mixin classes */
 .w50 { width: 50%; }
@@ -167,6 +168,11 @@ ol.skills li {
     /* .w50; */
 }
 
+.skill-list ul a {
+    float: left;
+    width: 100px;
+}
+
 #content {
     background-color: #fff;
     padding: 10px;
@@ -204,7 +210,7 @@ ol.skills li {
     background: #fff;
     padding: 3px;
     border: 1px solid ;
-    border-color: @light_text;
+    border-color: @highlight;
 }
 
 /* user detail page */
@@ -223,6 +229,12 @@ ol.skills li {
 #content > div {
     background: #f0f7da ;
     padding: 20px 10px 0;
+}
+
+/* text styles */
+.note {
+    font-size: 0.8em;
+    color: @light_text;
 }
 
 /* http://www.positioniseverything.net/easyclearing.html */

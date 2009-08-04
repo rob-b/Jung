@@ -101,6 +101,10 @@ ol.skills li {
   width: 50%;
 }
 .skill-detail p { padding-right: 20px; }
+.skill-list ul a {
+  float: left;
+  width: 100px;
+}
 #content {
   background-color: #ffffff;
   padding: 10px;
@@ -143,6 +147,10 @@ ol.skills li {
 #content > div {
   background: #f0f7da;
   padding: 20px 10px 0;
+}
+.note {
+  font-size: 0.8em;
+  color: #636363;
 }
 .clearfix:after {
   clear: both;
