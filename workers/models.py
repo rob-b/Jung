@@ -6,6 +6,7 @@ from django.conf import settings
 from hostel.storage import AttachmentStorage
 from hostel.models import MarkdownField
 from django_extensions.db.fields import AutoSlugField
+from managers import SkillManager
 import os.path
 
 def rename_avatar(instance, filename):
@@ -63,6 +64,7 @@ class Skill(models.Model):
     title = models.CharField(max_length=150, unique=True)
     description = MarkdownField()
     slug = AutoSlugField(editable=True, populate_from='title')
+    objects = SkillManager()
 
     def __unicode__(self):
         return self.title
