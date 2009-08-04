@@ -25,12 +25,14 @@ a:active { color: #fd1b14; }
   font-weight: normal;
   letter-spacing: 1px;
 }
-.sans-serif-stack { font-family: Helvetica, "Helvetica LT Std", Georgia; }
+.sans-serif-stack { font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif; }
 .left-padding { padding-left: 10px; }
 body {
   background: #eeecde;
   color: #222222;
   font-size: 100%;
+  line-height: 1.3;
+  font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: "Berthold Baskerville", Baskerville, Georgia, serif;
@@ -49,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
 #header h1 {
   font-size: 39px;
   color: #fd1b14;
-  font-family: Helvetica, "Helvetica LT Std", Georgia;
+  font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
   padding-top: 20px;
 }
 #top-nav {
@@ -84,6 +86,13 @@ ol.skills li {
   display: table-cell;
   vertical-align: middle;
 }
+.skill-detail > div {
+  margin-bottom: 20px;
+  float: left;
+  display: inline;
+  *margin-left: -0.04em;
+  width: 50%;
+}
 .user-detail > div {
   margin-bottom: 20px;
   float: left;
@@ -91,6 +100,7 @@ ol.skills li {
   *margin-left: -0.04em;
   width: 50%;
 }
+.skill-detail p { padding-right: 20px; }
 #content {
   background-color: #ffffff;
   padding: 10px;

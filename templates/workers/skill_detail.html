@@ -1,26 +1,31 @@
 {% extends 'workers/base.html' %}
 
-{% load i18n thumbnail tags %}
+{% load i18n thumbnail tags typogrify %}
 
 {% block title %}{{ object.title }}{% endblock %}
 
             {% block content %}
             <div id="content">
                 <h2>{{ object.title }}</h2>
-                <div id="inner">
-                    {{ object.description_html }}
-                    <h3>{% trans 'Employees with this skill' %}</h3>
-                    <ol>
-                    {% for profile in object.employee_set.all %}
-                        <li>
-                            <a href="{{ profile.get_absolute_url }}">
-                                {{ profile.user.get_full_name }}
-                            </a>
-                        </li>
-                    {% empty %}
-                        <li>{% trans 'A rare talent' %{</li>
-                    {% endfor %}
-                    </ol>
+                <div class="clearfix skill-detail">
+                    <div>
+                        <h3>{% trans 'Description' %}</h3>
+                        {{ object.description_html|typogrify }}
+                    </div>
+                    <div>
+                        <h3>{% trans 'Employees with this skill' %}</h3>
+                        <ol>
+                        {% for profile in object.employee_set.all %}
+                            <li>
+                                <a href="{{ profile.get_absolute_url }}">
+                                    {{ profile.user.get_full_name }}
+                                </a>
+                            </li>
+                        {% empty %}
+                            <li>{% trans 'A rare talent' %}</li>
+                        {% endfor %}
+                        </ol>
+                    </div>
                 </div>
             </div>
             {% endblock content %}
