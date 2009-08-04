@@ -104,6 +104,7 @@ ol.skills li {
 .skill-list ul a {
   float: left;
   width: 100px;
+  margin-right: 20px;
 }
 #content {
   background-color: #ffffff;
