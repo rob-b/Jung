@@ -160,6 +160,10 @@ ol li {
   font-weight: normal;
   letter-spacing: 1px;
 }
+ol li span {
+  font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
+  letter-spacing: normal;
+}
 ol li a {
   font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
   letter-spacing: normal;
