@@ -18,6 +18,7 @@ urlpatterns = patterns('',
         {'url': '/employees/'},
         name='worker_homepage'),
     (r'^employees/', include('workers.urls')),
+    (r'^skills/', include('workers.urls.skills')),
 )
 
 from django.conf import settings
