@@ -23,7 +23,8 @@
                             {% trans 'Employees' %}
                         </a>
                     </li>
-                    <li><a href="">Projects</a></li>
+                    <li><a href="">{% trans 'Projects' %}</a></li>
+                    <li><a href="{% url workers_skill_list %}">{% trans 'Skills' %}</a></li>
                 </ul>
             </div>
             {% block content %}
