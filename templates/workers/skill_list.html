@@ -1,0 +1,30 @@
+{% extends 'workers/base.html' %}
+{% load i18n thumbnail tags typogrify %}
+
+{% block title %}{% trans 'Skills' %}{% endblock %}
+
+            {% block content %}
+            <div id="content">
+                <h2>{% trans 'Skills' %}</h2>
+                <div class="clearfix skill-list">
+                    <ul>
+                        {% for skill in object_list %}
+                        <li>
+                            <a href="{{ skill.get_absolute_url }}">
+                                {{ skill.title }}
+                            </a>
+                            <span class="note">
+                                {% blocktrans count skill.total_employees as total_employees %}
+                                0 employees have this skill
+                                {% plural %}
+                                {{ total_employees }} employees have this skill
+                                {% endblocktrans %}
+                            </span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            {% endblock content %}
+
