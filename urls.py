@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from django.core.urlresolvers import reverse
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -12,9 +13,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'django.views.generic.simple.direct_to_template',
-        {'template': 'base.html'},
-        name='home_page'),
+    url(r'^$',
+        'django.views.generic.simple.redirect_to',
+        {'url': '/employees/'},
+        name='worker_homepage'),
     (r'^employees/', include('workers.urls')),
 )
 
