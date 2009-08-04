@@ -6,7 +6,7 @@
                 <div class="user-list clearfix" id="inner">
                     {% for object in object_list %}
                     <div>
-                        <img src="{% thumbnail object.avatar 50x50 autocrop,crop,upscale %}">
+                        <img alt="" src="{% thumbnail object.avatar 50x50 autocrop,crop,upscale %}">
                         <h3>
                             <a href="{{ object.get_absolute_url }}">
                                 {{ object.user.username }}

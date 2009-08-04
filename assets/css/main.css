@@ -130,7 +130,7 @@ ol.skills li {
 .vcard ul { margin-left: 125px; }
 .vcard img { float: left; }
 .vcard { margin-bottom: 20px; }
-#inner {
+#content > div {
   background: #f0f7da;
   padding: 20px 10px 0;
 }
