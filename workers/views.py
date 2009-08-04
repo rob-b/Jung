@@ -4,7 +4,7 @@ from models import Employee, Skill
 
 @rendered
 def skill_detail(request, skill):
-    skill = get_object_or_404(Skill, title=skill)
+    skill = get_object_or_404(Skill, slug=skill)
     return 'workers/skill_detail.html', {
         'object': skill,
     }
