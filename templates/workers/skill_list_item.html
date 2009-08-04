@@ -1,0 +1,12 @@
+{% load i18n %}
+                            <a href="{{ skill.get_absolute_url }}">
+                                {{ skill.title }}
+                            </a>
+                            <span class="note">
+                                {% blocktrans count skill.total_employees as total_employees %}
+                                1 employee has this skill
+                                {% plural %}
+                                {{ total_employees }} employees have this skill
+                                {% endblocktrans %}
+                            </span>
+
