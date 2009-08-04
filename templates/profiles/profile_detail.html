@@ -1,6 +1,6 @@
 {% extends 'profiles/base.html' %}
 
-{% load i18n thumbnail tags %}
+{% load i18n thumbnail tags typogrify %}
 
 {% block title %}{{ profile.user.get_full_name }}{% endblock %}
             {% block content %}
@@ -8,13 +8,15 @@
                 <h2>{% trans 'Employee Detail' %}</h2>
                 <div class="user-detail clearfix">
                     <div>
-                        <div id="hcard-{{ profile.user.first_name }}-{{ profile.user.last_name }}" class="clearfix vcard">
-                            <img src="{% thumbnail profile.avatar 100x100 autocrop,crop,upscale %}" alt="">
-                            <h3 class="fn">{{ profile.user.get_full_name }}</h3>
+                        <div id="hcard-{{ profile.full_name|slugify }}" class="clearfix vcard">
+                            <img class="photo" src="{% thumbnail profile.avatar 100x100 autocrop,crop,upscale %}" alt="">
+                            <h3 class="fn">{{ profile.user.get_full_name|typogrify }}</h3>
                             <ul>
+                                {% if profile.user.email %}
                                 <li>
-                                    {{ profile.user.email|obfuscate:"Email"}}
+                                    {{ profile.user.email|obfuscate }}
                                 </li>
+                                {% endif %}
                                 <li>
                                     <a class="url" href="xmpp:foo@place.com">
                                         Jabber

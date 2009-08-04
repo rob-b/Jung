@@ -16,9 +16,9 @@
                         <h3>{% trans 'Employees with this skill' %}</h3>
                         <ol>
                         {% for profile in object.employee_set.all %}
-                            <li>
-                                <a href="{{ profile.get_absolute_url }}">
-                                    {{ profile.user.get_full_name }}
+                            <li class="vcard">
+                                <a class="url fn" href="{{ profile.get_absolute_url }}">
+                                    {{ profile.full_name }}
                                 </a>
                             </li>
                         {% empty %}
