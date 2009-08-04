@@ -49,6 +49,9 @@ class Employee(models.Model):
     def get_absolute_url(self):
         return ('profiles_profile_detail', (self.user.username,))
 
+    class Meta:
+        ordering = ['user__last_name', 'user__username']
+
 
 class Skill(models.Model):
     title = models.CharField(max_length=150, unique=True)
