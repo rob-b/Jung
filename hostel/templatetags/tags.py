@@ -105,11 +105,11 @@ register.filter('to_class',to_class)
 from django.utils.html import conditional_escape
 
 @register.filter()
-def obfuscate(email, linktext=None, autoescape=None):
+def obfuscate(email, linktext=None, vcard=True, autoescape=None):
     """
     Given a string representing an email address,
     returns a mailto link with rot13 JavaScript obfuscation.
-    
+
     Accepts an optional argument to use as the link text;
     otherwise uses the email address itself.
     """
@@ -126,9 +126,14 @@ def obfuscate(email, linktext=None, autoescape=None):
     else:
         linktext = email
 
+    if vcard:
+        vcard = """ pynff=\\\"rznvy\\\""""
+    else:
+        vcard = ''
+
     rotten_link = """<script type="text/javascript">document.write \
-        ("<n uers=\\\"znvygb:%s\\\">%s<\\057n>".replace(/[a-zA-Z]/g, \
+        ("<n uers=\\\"znvygb:%s\\\"%s>%s<\\057n>".replace(/[a-zA-Z]/g, \
         function(c){return String.fromCharCode((c<="Z"?90:122)>=\
-        (c=c.charCodeAt(0)+13)?c:c-26);}));</script>""" % (email, linktext)
+        (c=c.charCodeAt(0)+13)?c:c-26);}));</script>""" % (email, vcard, linktext)
     return mark_safe(rotten_link)
 obfuscate.needs_autoescape = True
