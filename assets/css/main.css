@@ -141,8 +141,8 @@ ol.skills li {
   border: 1px solid;
   border-color: #d3d3d3;
 }
-.vcard h3 { margin-left: 125px; }
-.vcard ul { margin-left: 125px; }
+.user-detail .vcard h3 { margin-left: 125px; }
+.user-detail .vcard ul { margin-left: 125px; }
 .vcard img { float: left; }
 .vcard { margin-bottom: 20px; }
 #content > div {
