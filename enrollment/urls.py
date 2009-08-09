@@ -7,5 +7,5 @@ urlpatterns = patterns('',
        'registration.views.register',
        {'form_class': EnrollmentForm},
        name='registration_register'),
-    (r'^', include('registration.urls')),
+    (r'', include('registration.urls')),
 )
