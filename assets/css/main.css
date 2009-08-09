@@ -72,10 +72,9 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
 }
 ul#user-options {
-    float: right;
-    padding-right: 10px;
+  float: right;
+  padding-right: 10px;
 }
-
 ol.skills { margin-bottom: 0; }
 ol.skills li {
   float: none;
@@ -128,6 +127,14 @@ ol.skills li {
   border-top: 1px solid #ccd2b9;
   clear: both;
 }
+#content > p {
+  background: #f0f7da;
+  padding: 20px 10px 0;
+}
+#content > div {
+  background: #f0f7da;
+  padding: 20px 10px 0;
+}
 .user-list ol { padding-left: 10px; }
 .user-list h3 {
   margin-left: 65px;
@@ -152,10 +159,6 @@ ol.skills li {
 .user-detail .vcard ul { margin-left: 125px; }
 .vcard img { float: left; }
 div.vcard { margin-bottom: 20px; }
-#content > div {
-  background: #f0f7da;
-  padding: 20px 10px 0;
-}
 .note {
   font-size: 0.8em;
   color: #636363;
@@ -173,34 +176,24 @@ ol li a {
   font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
   letter-spacing: normal;
 }
-
-
-/* forms */
 form label {
-    width: 150px;
-    float: left;
+  width: 150px;
+  float: left;
 }
 form button {
-    background-color: #0b0b0b;
-    border: none;
-    color: #fd1b14;
-    padding: 5px;
+  background-color: #0b0b0b;
+  border: none;
+  color: #fd1b14;
+  padding: 5px;
 }
-form div {
-    margin-bottom: 10px;
-}
+form div { margin-bottom: 10px; }
 ul.errorlist {
-    list-style-type: none;
-    margin: 0;
-    color: red;
+  list-style-type: none;
+  margin: 0;
+  color: red;
 }
-ul.errorlist li {
-    margin: 20px 0 1px;
-}
-ul.errorlist li:first-child {
-    margin-top: 0;
-}
-
+ul.errorlist li { margin: 20px 0 1px; }
+ul.errorlist li:first-child { margin-top: 0; }
 .clearfix:after {
   clear: both;
   content: '.';

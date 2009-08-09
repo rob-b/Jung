@@ -142,6 +142,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-right: 10px;
     float:left;
 }
+ul#user-options {
+    float: right;
+    padding-right: 10px;
+}
 
 
 ol.skills {
@@ -193,6 +197,12 @@ ol.skills li {
     border-top: 1px solid #ccd2b9;
     clear: both;
 }
+#content > p,
+#content > div {
+    background: #f0f7da ;
+    padding: 20px 10px 0;
+}
+
 .user-list ol {
     .left-padding;
 }
@@ -229,11 +239,6 @@ div.vcard {
     margin-bottom: 20px;
 }
 
-#content > div {
-    background: #f0f7da ;
-    padding: 20px 10px 0;
-}
-
 /* text styles */
 .note {
     font-size: 0.8em;
@@ -252,6 +257,32 @@ ol li span,
 ol li a {
     .sans-serif-stack;
     letter-spacing: normal;
+}
+
+/* forms */
+form label {
+    width: 150px;
+    float: left;
+}
+form button {
+    background-color: #0b0b0b;
+    border: none;
+    color: #fd1b14;
+    padding: 5px;
+}
+form div {
+    margin-bottom: 10px;
+}
+ul.errorlist {
+    list-style-type: none;
+    margin: 0;
+    color: red;
+}
+ul.errorlist li {
+    margin: 20px 0 1px;
+}
+ul.errorlist li:first-child {
+    margin-top: 0;
 }
 
 /* http://www.positioniseverything.net/easyclearing.html */
