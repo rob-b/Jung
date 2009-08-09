@@ -17,8 +17,12 @@ urlpatterns = patterns('',
         'django.views.generic.simple.redirect_to',
         {'url': '/employees/'},
         name='worker_homepage'),
+
+    # mount the registration app under /employees
+    (r'^employees/', include('enrollment.urls')),
     (r'^employees/', include('workers.urls')),
     (r'^skills/', include('workers.urls.skills')),
+    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
 )
 
 from django.conf import settings
