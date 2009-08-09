@@ -23,6 +23,7 @@ urlpatterns = patterns('',
     (r'^employees/', include('workers.urls')),
     (r'^skills/', include('workers.urls.skills')),
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
 )
 
 from django.conf import settings
