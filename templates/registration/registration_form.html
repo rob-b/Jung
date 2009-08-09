@@ -1,0 +1,32 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+{% block content %}
+<div id="content">
+    <h2>{% trans 'Register' %}</h2>
+    <div>
+        <form action="" method="post" class="clearfix">
+            {% if form.non_field_errors %}
+            {{ form.non_field_errors }}
+            {% endif %}
+            {% for field in form %}
+            <div {% if field.errors %}class=" error"{% endif %}>
+                {{ field.errors }}
+                <label for="{{ field.auto_id }}" class="clearfix">
+                    {{ field.label }}
+                    {% if field.field.required %}*{% endif %}
+                </label>
+
+                {{ field }}
+                {% if field.help_text %}
+                <span>{{ field.help_text }}</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <p class="note">* {% trans 'Required fields' %}</p>
+            <div>
+                <button type="submit">{% trans 'Register' %}</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
