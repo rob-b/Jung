@@ -42,6 +42,10 @@ class Employee(models.Model):
                                storage=AttachmentStorage(overwrite=True),)
     role = models.ForeignKey('Role', verbose_name=_('Role'),
                              blank=False, null=True)
+    im = models.ManyToManyField('contacts.InstantMessenger',
+                                blank=True,
+                                null=True,
+                                verbose_name=_('Instant Messenger'))
 
     def __unicode__(self):
         return _('Employee profile for %s') % self.user.username

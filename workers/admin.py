@@ -2,15 +2,23 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-import models
+from models import Skill, Role, Employee
+from contacts.models import InstantMessenger
+
+
+class InstantMessengerAdmin(admin.StackedInline):
+    model = InstantMessenger
+
 
 class EmployeeAdmin(admin.StackedInline):
-    model = models.Employee
+    model = Employee
     fk_name = 'user'
     max_num = 1
     verbose_name = 'profile'
     verbose_name_plural = 'Profile'
     filter_horizontal = 'skill',
+    inlines = [InstantMessengerAdmin]
+
 
 class EmployeeUserAdmin(UserAdmin):
     inlines = [EmployeeAdmin]
@@ -27,5 +35,6 @@ class EmployeeUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, EmployeeUserAdmin)
-admin.site.register(models.Skill)
-admin.site.register(models.Role)
+admin.site.register(Skill)
+admin.site.register(Role)
+admin.site.register(InstantMessenger)
