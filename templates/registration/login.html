@@ -1,0 +1,26 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="content">
+    <h2>{% trans 'Login' %}</h2>
+    <div class="clearfix">
+    <p>
+        {% trans 'Don’t have an account?' %}
+        <a href="{% url registration_register %}">{% trans 'Register' %}</a>
+    </p>
+    {% url auth_password_reset as pass_reset %}
+    <p>
+        <a href="{{ pass_reset }}">
+            {% trans 'Forgotten your password?' %}
+        </a>
+    </p>
+
+    <form action="" method="post">
+        {% include "forms/simple_form.html" %}
+        <button type="submit">{% trans 'Login' %}</button>
+    </form>
+    <hr>
+    </div>
+</div>
+{% endblock %}

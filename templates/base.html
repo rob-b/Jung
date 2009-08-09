@@ -19,7 +19,8 @@
                     <li><a href="{% url login %}">{% trans 'Login' %}</a></li>
                     <li><a href="{% url registration_register %}">{% trans 'Register' %}</a></li>
                     {% else %}
-                    <li><a href="">{% trans 'Profile' %}</a></li>
+                    <li><a href="{{ user.get_profile.get_absolute_url }}">{% trans 'Profile' %}</a></li>
+                    <li><a href="{% url logout %}">{% trans 'Logout' %}</a></li>
                     {% endif %}
                 </ul>
                 <ul class="clearfix">
