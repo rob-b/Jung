@@ -17,11 +17,13 @@
                                     {{ profile.user.email|obfuscate }}
                                 </li>
                                 {% endif %}
+                                {% if profile.im.count %}
+                                {% for contact in profile.im.all %}
                                 <li>
-                                    <a class="url" href="xmpp:foo@place.com">
-                                        Jabber
-                                    </a>
+                                {{ contact.get_service_display }} <span class="note">({{ contact.get_location_display }})</span>
                                 </li>
+                                {% endfor %}
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

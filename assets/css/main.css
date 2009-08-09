@@ -71,6 +71,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: 10px;
   float: left;
 }
+ul#user-options {
+    float: right;
+    padding-right: 10px;
+}
+
 ol.skills { margin-bottom: 0; }
 ol.skills li {
   float: none;
@@ -168,6 +173,34 @@ ol li a {
   font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
   letter-spacing: normal;
 }
+
+
+/* forms */
+form label {
+    width: 150px;
+    float: left;
+}
+form button {
+    background-color: #0b0b0b;
+    border: none;
+    color: #fd1b14;
+    padding: 5px;
+}
+form div {
+    margin-bottom: 10px;
+}
+ul.errorlist {
+    list-style-type: none;
+    margin: 0;
+    color: red;
+}
+ul.errorlist li {
+    margin: 20px 0 1px;
+}
+ul.errorlist li:first-child {
+    margin-top: 0;
+}
+
 .clearfix:after {
   clear: both;
   content: '.';
