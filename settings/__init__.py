@@ -1,6 +1,6 @@
 # Django settings for jung project.
 import os
-PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
+PROJECT_DIR = os.path.dirname(os.path.realpath(os.path.join(__file__, '..')))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -91,25 +91,10 @@ INSTALLED_APPS = (
     'compress',
 )
 
-# compress settings
-COMPRESS_CSS = {
-    'all': {
-        'source_filenames': ('css/reset.css', 'css/main.css'),
-        'output_filename': 'all.css',
-    }
-}
-COMPRESS_JS = {
-    'all': {
-        'source_filenames': ('js/jquery-1.3.2.min.js', 'js/jquery.corners.min.js',
-                             'js/site.js'),
-        'output_filename': 'all.js',
-    }
-}
-COMPRESS = True
-CSSTIDY_BINARY = os.path.join(PROJECT_DIR, 'csstidy')
 
 
 try:
-    from settings_local import *
+    from settings.local import *
+    from settings.compress import *
 except ImportError:
     pass
