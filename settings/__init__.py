@@ -65,6 +65,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTH_PROFILE_MODULE = 'workers.employee'
+ACCOUNT_ACTIVATION_DAYS = 3
 
 ROOT_URLCONF = 'jung.urls'
 
@@ -73,6 +74,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_DIR, 'templates'),
+    os.path.join(PROJECT_DIR, 'templates', 'hostel'),
 )
 
 INSTALLED_APPS = (
@@ -89,6 +91,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'contacts',
     'compress',
+    'registration',
 )
 
 
