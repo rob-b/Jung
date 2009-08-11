@@ -96,6 +96,7 @@ INSTALLED_APPS = (
     'contacts',
     'compress',
     'registration',
+    'schedule',
 )
 
 
