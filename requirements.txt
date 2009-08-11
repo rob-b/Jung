@@ -8,3 +8,4 @@ django-profiles
 BeautifulSoup
 Markdown
 -e svn+http://django-compress.googlecode.com/svn/trunk/#=compress
+python-dateutil
