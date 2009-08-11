@@ -5,6 +5,8 @@ from datetime import datetime
 import dateutil
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
+from hostel.tests.request import RequestFactory
+from views import event_list
 
 class ScheduleTest(TestCase):
 
@@ -22,5 +24,15 @@ class ScheduleTest(TestCase):
         start = datetime.now()
         end = start + relativedelta(days=+1)
         event.add_occurrences(start, end, count=3,)
+        event2 = Event.objects.create(
+            title='The second event',
+            author=alice,
+            user=bob,
+            event_type=et,
+        )
+        rf = RequestFactory()
+        import ipdb; ipdb.set_trace();
+        request = rf.get('/nothing/')
+        response = event_list(request, bob.pk)
         import ipdb; ipdb.set_trace();
         assert False
