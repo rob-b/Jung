@@ -22,6 +22,7 @@ urlpatterns = patterns('',
     (r'^employees/', include('enrollment.urls')),
     (r'^employees/', include('workers.urls')),
     (r'^skills/', include('workers.urls.skills')),
+    (r'^schedules/', include('schedule.urls')),
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
 )
