@@ -194,6 +194,26 @@ ul.errorlist {
 }
 ul.errorlist li { margin: 20px 0 1px; }
 ul.errorlist li:first-child { margin-top: 0; }
+table { width: 100%; }
+tr { border-bottom: 2px solid #ffffff; }
+td {
+  border-left: 2px solid #ffffff;
+  padding: 10px;
+  background: #ccd2b9;
+  width: 75px;
+  height: 150px;
+}
+td.noday { background: #f0f7da; }
+td.history { background: #f4f9e4; }
+td.today {
+  color: orange;
+  background: #f4f9e4;
+}
+td h4 {
+  font-family: "Berthold Baskerville", Baskerville, Georgia, serif;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
 .clearfix:after {
   clear: both;
   content: '.';
