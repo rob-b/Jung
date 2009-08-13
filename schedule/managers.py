@@ -7,7 +7,7 @@ from hostel.managers import QuerySet
 class OccurrenceManager(QuerySet):
 
     def for_user(self, user):
-        return self.filter(event__user=user)
+        return self.filter(task__user=user)
 
     def group_by_day(self):
         field = lambda x: x.start_time.day

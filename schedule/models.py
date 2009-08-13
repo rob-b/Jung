@@ -6,7 +6,7 @@ from dateutil import rrule
 from managers import OccurrenceManager
 
 
-class Event(models.Model):
+class Task(models.Model):
 
     """once upon a time there was a user named Alice...
 
@@ -19,11 +19,11 @@ class Event(models.Model):
     when the second user Bob is available Alice can select a project, and
     optionally a time slot, to schedule Bob to work on that project.
 
-    But how are events related to projects? When a project is created a default
-    "work on project x" event type is created to complement it. When Alice, or Bob,
+    But how are tasks related to projects? When a project is created a default
+    "work on project x" task type is created to complement it. When Alice, or Bob,
     schedules a fellow user to work on a particular project it will by default
-    create an event associated with the default event type of that project. Of
-    course, Alice would also be able to create a custom event if she should so
+    create an task associated with the default task type of that project. Of
+    course, Alice would also be able to create a custom task if she should so
     choose.
     """
 
@@ -31,10 +31,10 @@ class Event(models.Model):
     slug = AutoSlugField(_('Slug'), populate_from='title', editable=True)
     body = MarkdownField(_('Body'), blank=True)
     author = models.ForeignKey('auth.user', verbose_name=_('Author'),
-                              related_name='events_created')
+                              related_name='tasks_created')
     user = models.ForeignKey('auth.user', verbose_name=_('User'))
-    event_type = models.ForeignKey('schedule.EventType',
-                                   verbose_name=_('Event type'))
+    task_type = models.ForeignKey('schedule.TaskType',
+                                   verbose_name=_('Task type'))
 
 
     def __unicode__(self):
@@ -42,7 +42,7 @@ class Event(models.Model):
 
     def add_occurrences(self, start_time, end_time, **rrule_params):
         '''
-        Add one or more occurences to the event using a comparable API to
+        Add one or more occurences to the task using a comparable API to
         ``dateutil.rrule``.
 
         If ``rrule_params`` does not contain a ``freq``, one will be defaulted
@@ -66,15 +66,15 @@ class Event(models.Model):
                 self.occurrence_set.create(start_time=ev, end_time=ev + delta)
 
 
-class EventType(models.Model):
+class TaskType(models.Model):
     title = models.CharField(_('Title'), max_length=100, unique=True)
 
 
 class Occurrence(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    event = models.ForeignKey('schedule.Event', verbose_name=_('event'))
+    task = models.ForeignKey('schedule.Task', verbose_name=_('task'))
     objects = OccurrenceManager.as_manager()
 
     def __unicode__(self):
-        return u'%s at %s' % (self.event.title, self.start_time)
+        return u'%s at %s' % (self.task.title, self.start_time)

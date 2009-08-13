@@ -1,12 +1,12 @@
 from django.test import TestCase
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from models import Event, EventType, Occurrence
+from models import Task, TaskType, Occurrence
 from datetime import datetime
 import dateutil
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
-from hostel.tests.request import RequestFactory
-from views import event_list
+from views import task_list
 
 class ScheduleTest(TestCase):
 
@@ -14,25 +14,23 @@ class ScheduleTest(TestCase):
         alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
         bob = User.objects.create_user('bob', 'bob@example.com', 'pass')
 
-        et = EventType.objects.create(title='some-project')
-        event = Event.objects.create(
-            title='Event #1',
+        et = TaskType.objects.create(title='some-project')
+        task = Task.objects.create(
+            title='Task #1',
             author=alice,
             user=bob,
-            event_type=et,
+            task_type=et,
         )
         start = datetime.now()
         end = start + relativedelta(days=+1)
-        event.add_occurrences(start, end, count=3,)
-        event2 = Event.objects.create(
-            title='The second event',
+        task.add_occurrences(start, end, count=3,)
+        task2 = Task.objects.create(
+            title='The second task',
             author=alice,
             user=bob,
-            event_type=et,
+            task_type=et,
         )
-        rf = RequestFactory()
-        import ipdb; ipdb.set_trace();
-        request = rf.get('/nothing/')
-        response = event_list(request, bob.pk)
+        dest = reverse('schedule_task_list')
+        response = self.client.get(dest)
         import ipdb; ipdb.set_trace();
         assert False
