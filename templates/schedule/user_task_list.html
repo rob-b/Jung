@@ -1,0 +1,12 @@
+{% extends "schedule/base.html" %}
+{% load i18n schedule_tags %}
+
+            {% block content %}
+            <div id="content">
+                <h2>{% trans 'Task List' %}</h2>
+                <div class="clearfix" id="inner">
+                    {% calendar %}
+                    <hr>
+                </div>
+            </div>
+            {% endblock content %}

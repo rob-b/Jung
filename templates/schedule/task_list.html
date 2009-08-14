@@ -5,7 +5,15 @@
             <div id="content">
                 <h2>{% trans 'Task List' %}</h2>
                 <div class="clearfix" id="inner">
-                    {% calendar %}
+                    <ul>
+                    {% for object in object_list %}
+                    <li>
+                        <a href="{% url schedule_user_task_list object.user.username %}">
+                            {{ object.full_name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                    </ul>
                     <hr>
                 </div>
             </div>
