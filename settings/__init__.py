@@ -11,12 +11,13 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = os.path.join(PROJECT_DIR, 'jung.db')
-DATABASE_USER = ''             # Not used with sqlite3.
-DATABASE_PASSWORD = ''         # Not used with sqlite3.
-DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
-DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
+DATABASE_ENGINE = 'mysql'
+# DATABASE_NAME = os.path.join(PROJECT_DIR, 'jung.db')
+DATABASE_NAME = 'jung'
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+DATABASE_HOST = ''
+DATABASE_PORT = ''
 
 TIME_ZONE = 'Europe/London'
 LANGUAGE_CODE = 'en-gb'
