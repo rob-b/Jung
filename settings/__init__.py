@@ -95,6 +95,8 @@ INSTALLED_APPS = (
     'compress',
     'registration',
     'schedule',
+    'policy',
+    'south',
 )
 
 
