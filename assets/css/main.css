@@ -106,11 +106,7 @@ ol.skills li {
   width: 50%;
 }
 .skill-detail p { padding-right: 20px; }
-.skill-list ul a {
-  float: left;
-  width: 100px;
-  margin-right: 20px;
-}
+.skill-list ul a { margin-right: 10px; }
 #content {
   background-color: #ffffff;
   padding: 10px;
@@ -195,7 +191,10 @@ ul.errorlist {
 ul.errorlist li { margin: 20px 0 1px; }
 ul.errorlist li:first-child { margin-top: 0; }
 table { width: 100%; }
-tr { border-bottom: 2px solid #ffffff; }
+tr {
+  border-bottom: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+}
 td {
   border-left: 2px solid #ffffff;
   padding: 10px;
