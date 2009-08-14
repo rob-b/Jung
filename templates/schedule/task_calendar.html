@@ -1,1 +1,25 @@
-{{ calendar }}
+<table class="month">
+    <tr><th colspan="7" class="month">{{ month }} {{ year }}</th></tr>
+    <tr><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th><th class="sun">Sun</th></tr>
+    {% for week in weeks %}
+    <tr>
+        {% for day in week %}
+        {% if not day.valid %}
+        <td class="noday">&nbsp;</td>
+        {% else %}
+        <td class="{{ day.day_name }} {% if day.past %}history{% endif %}{% if day.today %}today{% endif %}">
+            <h4>{{ day.day }}</h4>
+            {% if day.tasks %}
+            <ol>
+            {% for task in day.tasks %}
+            <li>{{ task.task.title }}</li>
+            {% endfor %}
+            </ol>
+            {% endif %}
+        </td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
