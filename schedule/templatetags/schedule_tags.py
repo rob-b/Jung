@@ -56,20 +56,16 @@ def check_tasks(day_list, tasks):
     return day_list
 
 
-@register.inclusion_tag('schedule/task_calendar.html', takes_context=True)
-def calendar(context):
-    month, year = context['month'], context['year']
-    tasks = context['object_list']
-    calendar = mark_safe(TaskCalendar(tasks).formatmonth(year, month))
+@register.inclusion_tag('schedule/task_calendar.html')
+def calendar(tasks, date_obj=date.today()):
+    month, year = date_obj.month, date_obj.year
+    tasks = tasks
 
     dates = Calendar()
     weeks = [process_week(week, month, year) for week in
              dates.monthdays2calendar(year, month)]
     weeks = [check_tasks(week, tasks) for week in weeks]
     return {
-        'calendar': calendar,
-        'year': year,
-        'month': month,
-        'dates': dates.monthdays2calendar(year, month),
         'weeks': weeks,
+        'date_obj': date_obj,
     }

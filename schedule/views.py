@@ -3,36 +3,20 @@ from django.shortcuts import get_object_or_404
 from hostel.decorators import rendered
 from models import Task, TaskType, Occurrence
 from utils import TaskCalendar
-from datetime import datetime
+from datetime import date
 from calendar import Calendar
 from workers.models import Employee
 
 @rendered
 def user_task_list(request, username, month=None, year=None):
     if month is None and year is None:
-        now = datetime.now()
+        now = date.today()
         month, year = now.month, now.year
     user = get_object_or_404(User, username=username)
     tasks = Occurrence.objects.for_user(user).group_by_day()
-    calendar = Calendar()
-    # dates = [dt for dt in calendar.itermonthdates(year, month) if dt.month ==
-             # month]
-    dates = list(calendar.itermonthdates(year, month))
-    matches = []
-    for date in dates:
-        if date.day in tasks:
-            str = '**%s**' % date.day
-        else:
-            str = '%d' % date.day
-        matches.append(str)
-    calendar = TaskCalendar(tasks).formatmonth(year, month)
     return 'schedule/user_task_list.html', {
-        'dates': dates,
-        'object_list': tasks,
-        'matches': matches,
-        'calendar': calendar,
-        'month': month,
-        'year': year,
+        'tasks': tasks,
+        'date_obj': date(year, month, 1)
     }
 
 @rendered
