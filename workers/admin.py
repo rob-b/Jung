@@ -33,8 +33,16 @@ class EmployeeUserAdmin(UserAdmin):
         }),
     )
 
+
+class RoleAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+
+
+class SkillAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
+
 admin.site.unregister(User)
 admin.site.register(User, EmployeeUserAdmin)
-admin.site.register(Skill)
-admin.site.register(Role)
+admin.site.register(Skill, SkillAdmin)
+admin.site.register(Role, RoleAdmin)
 admin.site.register(InstantMessenger)
