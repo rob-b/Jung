@@ -74,9 +74,6 @@ LOGIN_REDIRECT_URL = '/employees/'
 ROOT_URLCONF = 'jung.urls'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     os.path.join(PROJECT_DIR, 'templates'),
     os.path.join(PROJECT_DIR, 'templates', 'hostel'),
 )
@@ -104,5 +101,7 @@ INSTALLED_APPS = (
 try:
     from settings.local import *
     from settings.compress import *
-except ImportError:
+except ImportError, e:
+    if DEBUG:
+        print e.message
     pass
