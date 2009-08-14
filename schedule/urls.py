@@ -9,6 +9,7 @@ urlpatterns = patterns('schedule.views',
 
     url(r'^$',
         'task_list',
-        {'user_id': 1},
         name='schedule_task_list'),
+    url(r'^(?P<username>[-\w]+)/$',
+        'user_task_list', name='schedule_user_task_list'),
 )

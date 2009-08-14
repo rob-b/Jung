@@ -5,13 +5,14 @@ from models import Task, TaskType, Occurrence
 from utils import TaskCalendar
 from datetime import datetime
 from calendar import Calendar
+from workers.models import Employee
 
 @rendered
-def task_list(request, user_id, month=None, year=None):
+def user_task_list(request, username, month=None, year=None):
     if month is None and year is None:
         now = datetime.now()
         month, year = now.month, now.year
-    user = get_object_or_404(User, id=user_id)
+    user = get_object_or_404(User, username=username)
     tasks = Occurrence.objects.for_user(user).group_by_day()
     calendar = Calendar()
     # dates = [dt for dt in calendar.itermonthdates(year, month) if dt.month ==
@@ -25,11 +26,18 @@ def task_list(request, user_id, month=None, year=None):
             str = '%d' % date.day
         matches.append(str)
     calendar = TaskCalendar(tasks).formatmonth(year, month)
-    return 'schedule/task_list.html', {
+    return 'schedule/user_task_list.html', {
         'dates': dates,
         'object_list': tasks,
         'matches': matches,
         'calendar': calendar,
         'month': month,
         'year': year,
+    }
+
+@rendered
+def task_list(request):
+    object_list = Employee.objects.select_related().all()
+    return 'schedule/task_list.html', {
+        'object_list': object_list,
     }
