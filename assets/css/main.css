@@ -191,12 +191,10 @@ ul.errorlist {
 ul.errorlist li { margin: 20px 0 1px; }
 ul.errorlist li:first-child { margin-top: 0; }
 table { width: 100%; }
-tr {
-  border-bottom: 2px solid #ffffff;
-  border-right: 2px solid #ffffff;
-}
+tr:last-child { border-bottom: 2px solid #ffffff; }
 td {
-  border-left: 2px solid #ffffff;
+  border: 2px solid #ffffff;
+  border-bottom: 0;
   padding: 10px;
   width: 75px;
   height: 150px;
