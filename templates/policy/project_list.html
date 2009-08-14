@@ -1,0 +1,19 @@
+{% extends 'policy/base.html' %}
+{% load i18n thumbnail typogrify tags %}
+
+{% block title %}{% trans 'Projects' %}{% endblock title %}
+
+            {% block content %}
+            <div id="content">
+                <h2>{% trans 'Projects' %}</h2>
+                <div class="project-list cleafix">
+                    {% for project in object_list %}
+                    <div>
+                        <h3>{{ project.name }}</h3>
+                        <p>For {{ project.account.name }}</p>
+                        {{ project.description_html }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endblock content %}
