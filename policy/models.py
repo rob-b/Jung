@@ -30,6 +30,9 @@ class Account(PolicyModel):
     colour = models.CharField(_('Colour'), max_length=6, blank=True)
     description = MarkdownField(_('Description'))
 
+    def get_absolute_url(self):
+        return '/foo/'
+
 
 class Programme(PolicyModel):
     description = MarkdownField(_('Description'))
@@ -47,3 +50,18 @@ class Project(PolicyModel):
     account = FK(to='Account', verbose_name='Account', blank=False)
     description = MarkdownField(_('Description'))
 
+    @property
+    def user_relations(self):
+        for field, model in self._meta.get_fields_with_model():
+            instance = None
+            try:
+                if issubclass(field.rel.to, User):
+                    instance = getattr(self, field.name)
+            except AttributeError:
+                continue
+            if instance is not None:
+                yield field.verbose_name, instance
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('policy_project_detail', [self.slug])
