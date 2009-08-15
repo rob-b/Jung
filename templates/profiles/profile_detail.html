@@ -10,7 +10,7 @@
                     <div>
                         <div id="hcard-{{ profile.full_name|slugify }}" class="clearfix vcard">
                             <img class="photo" src="{% thumbnail profile.avatar 100x100 autocrop,crop,upscale %}" alt="">
-                            <h3 class="fn">{{ profile.user.get_full_name|typogrify }}</h3>
+                            <h3 class="fn">{{ profile.full_name|typogrify }}</h3>
                             <ul>
                                 {% if profile.user.email %}
                                 <li>
