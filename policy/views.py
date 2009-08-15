@@ -7,3 +7,8 @@ def project_list(request):
         'object_list': Project.objects.all(),
     }
 
+@rendered
+def project_detail(request, slug):
+    return 'base.html', {
+    }
+
