@@ -107,6 +107,22 @@ ol.skills li {
 }
 .skill-detail p { padding-right: 20px; }
 .skill-list ul a { margin-right: 10px; }
+.project-list h3 + p { margin-top: -15px; }
+.project-list > div > p + p {
+  width: 50%;
+  float: left;
+  display: inline;
+  *margin-left: -0.04em;
+}
+.project-list > div > ul {
+  width: 50%;
+  float: left;
+  display: inline;
+  *margin-left: -0.04em;
+}
+.project-list > div { clear: both; }
+.project-list ul { list-style-type: none; }
+.project-list li { margin-left: 0; }
 #content {
   background-color: #ffffff;
   padding: 10px;
