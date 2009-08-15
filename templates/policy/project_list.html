@@ -6,12 +6,30 @@
             {% block content %}
             <div id="content">
                 <h2>{% trans 'Projects' %}</h2>
-                <div class="project-list cleafix">
+                <div class="project-list clearfix">
                     {% for project in object_list %}
                     <div>
-                        <h3>{{ project.name }}</h3>
-                        <p>For {{ project.account.name }}</p>
-                        {{ project.description_html }}
+                        <h3><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h3>
+                        <p class="note">
+                            {% blocktrans with project.account.name as account and project.account.get_absolute_url as account_url %}
+                            For 
+                            <a href="{{ account_url }}">
+                                {{ account }}
+                            </a>
+                            {% endblocktrans %}
+                        </p>
+                        {{ project.description_html|truncatewords_html:25 }}
+                        <ul>
+                        {% for label, user in project.user_relations %}
+                        {% with user.get_profile as profile %}
+                        <li>
+                            <a href="{{ user.get_profile.get_absolute_url }}">{{ profile.full_name }}</a> - {{ label }}
+                        </li>
+                        {% endwith %}
+                        {% empty %}
+                        <li>{% trans 'This project is running without human intervention' %}</li>
+                        {% endfor %}
+                        </ul>
                     </div>
                     {% endfor %}
                 </div>
