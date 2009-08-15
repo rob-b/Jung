@@ -7,6 +7,7 @@ import dateutil
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
 from views import task_list
+from forms import OccurrenceForm
 
 class ScheduleTest(TestCase):
 
@@ -32,5 +33,37 @@ class ScheduleTest(TestCase):
         )
         dest = reverse('schedule_task_list')
         response = self.client.get(dest)
-        import ipdb; ipdb.set_trace();
-        assert False
+
+    def test_occurrence_form(self):
+        """Times outside of work hours should produce errors in the form"""
+        now = datetime.now()
+        data = {
+            'start_time': now.replace(hour=7)
+        }
+        form = OccurrenceForm(data)
+        self.assertFalse(form.is_valid(), '7am starts are not allowed')
+        self.assert_('start_time' in form.errors)
+        self.assert_('Work hours are' in form.errors['start_time'][0])
+
+        data = {
+            'end_time': now.replace(hour=19)
+        }
+        form = OccurrenceForm(data)
+        self.assertFalse(form.is_valid(), '7pm finishes are not allowed')
+        self.assert_('end_time' in form.errors)
+        self.assert_('Work hours are' in form.errors['end_time'][0])
+
+        # just to ensure that it does not always return invalid
+        data = {
+            'end_time': now.replace(hour=14)
+        }
+        form = OccurrenceForm(data)
+        self.assertFalse(form.is_valid())
+        self.assertFalse('end_time' in form.errors)
+
+        data = {
+            'start_time': now.replace(hour=9)
+        }
+        form = OccurrenceForm(data)
+        self.assertFalse(form.is_valid())
+        self.assertFalse('start_time' in form.errors)
