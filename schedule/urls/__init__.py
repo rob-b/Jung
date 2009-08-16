@@ -7,8 +7,8 @@ admin.autodiscover()
 urlpatterns = patterns('schedule.views',
 
     url(r'^$',
-        'task_list',
-        name='schedule_task_list'),
+        'schedule_list',
+        name='schedule_schedule_list'),
     url(r'^(?P<username>[-\w]+)/$',
-        'user_task_list', name='schedule_user_task_list'),
+        'user_schedule', name='schedule_user_schedule'),
 )
