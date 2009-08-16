@@ -9,6 +9,9 @@ class OccurrenceManager(QuerySet):
     def for_user(self, user):
         return self.filter(task__user=user)
 
+    def month(self, month):
+        return self.filter(start_time__month=month)
+
     def group_by_day(self):
         field = lambda x: x.start_time.day
         days = defaultdict(list)
