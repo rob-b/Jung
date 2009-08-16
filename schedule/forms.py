@@ -92,7 +92,7 @@ class TaskForm(forms.ModelForm):
                                   label=_('User'),
                                   help_text=_('Who this task will be'
                                               ' assigned to'))
-    day = forms.DateField(widget=SelectDateWidget())
+    day = forms.DateField(widget=SelectDateWidget(), initial=date.today())
     start_time = forms.ChoiceField(label=_('Start time'),
                                    choices=timeslot_options,)
     end_time = forms.IntegerField(
