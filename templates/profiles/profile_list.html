@@ -13,7 +13,11 @@
                             </a>
                         </h3>
                         <h3 class="role">
+                            {% if object.role %}
                             {{ object.role|typogrify }}
+                            {% else %}
+                            {% trans 'No role' %}
+                            {% endif %}
                         </h3>
                     </div>
                     {% endfor %}
