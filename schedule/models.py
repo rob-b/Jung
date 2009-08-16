@@ -69,6 +69,9 @@ class Task(models.Model):
 class TaskType(models.Model):
     title = models.CharField(_('Title'), max_length=100, unique=True)
 
+    def __unicode__(self):
+        return u'%s' % self.title
+
 
 class Occurrence(models.Model):
     start_time = models.DateTimeField()
@@ -78,6 +81,7 @@ class Occurrence(models.Model):
 
     def __unicode__(self):
         return u'%s at %s' % (self.task.title, self.start_time)
+
 
     class Meta:
         ordering = ['-start_time']
