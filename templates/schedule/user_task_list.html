@@ -1,0 +1,19 @@
+{% extends "schedule/base.html" %}
+{% load i18n schedule_tags %}
+
+            {% block content %}
+            <div id="content">
+                <h2>{{ profile.full_name }}</h2>
+                <div class="clearfix" id="inner">
+                    <ul>
+                    {% for object in object_list %}
+                    <li>
+                            {{ object }}
+                    </li>
+                    {% endfor %}
+                    </ul>
+                    <hr>
+                </div>
+            </div>
+            {% endblock content %}
+
