@@ -12,24 +12,25 @@
                         <h3><a href="{{ project.get_absolute_url }}">{{ project.name }}</a></h3>
                         <p class="note">
                             {% blocktrans with project.account.name as account and project.account.get_absolute_url as account_url %}
-                            For 
+                            For
                             <a href="{{ account_url }}">
                                 {{ account }}
                             </a>
                             {% endblocktrans %}
                         </p>
-                        {{ project.description_html|truncatewords_html:25 }}
-                        <ul>
+                        <ul class="note clearfix">
                         {% for label, user in project.user_relations %}
                         {% with user.get_profile as profile %}
                         <li>
-                            <a href="{{ user.get_profile.get_absolute_url }}">{{ profile.full_name }}</a> - {{ label }}
+                            <a href="{{ user.get_profile.get_absolute_url }}">{{ profile.full_name }}</a> {{ label }}{% if not forloop.last %},&nbsp;{% endif %}
                         </li>
                         {% endwith %}
                         {% empty %}
                         <li>{% trans 'This project is running without human intervention' %}</li>
                         {% endfor %}
                         </ul>
+
+                        {{ project.description_html|truncatewords_html:25 }}
                     </div>
                     {% endfor %}
                 </div>
