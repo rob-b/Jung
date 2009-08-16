@@ -7,7 +7,7 @@ import dateutil
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
 from views import task_list
-from forms import OccurrenceForm
+from forms import OccurrenceForm, TaskForm
 
 class ScheduleTest(TestCase):
 
@@ -67,3 +67,29 @@ class ScheduleTest(TestCase):
         form = OccurrenceForm(data)
         self.assertFalse(form.is_valid())
         self.assertFalse('start_time' in form.errors)
+
+    def test_task_form(self):
+        alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
+        data = {
+            'title': 'Write some tests',
+            'day': '01/04/2005',
+            'start_time': 2,
+            'end_time': 12,
+            'user': alice.pk,
+        }
+        form = TaskForm(data)
+        self.assertFalse(form.is_valid())
+
+        data['start_time'] = 11
+        data['count'] = 3
+        form = TaskForm(data)
+        self.assert_(form.is_valid())
+        tt = TaskType.objects.create(title='why?')
+        task = form.save(commit=False)
+        task.task_type = tt
+        task.author = alice
+        task.save()
+        task.add_occurrences(form.cleaned_data['start_time'],
+                             form.cleaned_data['end_time'],
+                             count=form.cleaned_data['count'])
+        self.assertEqual(Occurrence.objects.count(), 3)
