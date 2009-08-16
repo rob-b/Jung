@@ -38,7 +38,8 @@ def task_add(request):
         if form.is_valid():
             task = form.save(commit=False)
             task.author = request.user
-            task.user = request.user
+            user = form.cleaned_data.get('user', request.user)
+            task.user = user
             task.task_type = form.cleaned_data['task_type']
             task.save()
             task.add_occurrences(form.cleaned_data['start_time'],
