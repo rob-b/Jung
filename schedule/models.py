@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from hostel.models import MarkdownField
 from django_extensions.db.fields import AutoSlugField
 from dateutil import rrule
-from managers import OccurrenceManager
+from managers import OccurrenceManager, TaskManager
 
 
 class Task(models.Model):
@@ -35,7 +35,7 @@ class Task(models.Model):
     user = models.ForeignKey('auth.user', verbose_name=_('User'))
     task_type = models.ForeignKey('schedule.TaskType',
                                    verbose_name=_('Task type'))
-
+    objects = TaskManager.as_manager()
 
     def __unicode__(self):
         return self.title

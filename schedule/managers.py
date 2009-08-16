@@ -21,3 +21,8 @@ class OccurrenceManager(QuerySet):
         # return a standard dict purely because there are places where django
         # doesn't handle defaultdict well i.e. templates
         return dict(days)
+
+class TaskManager(QuerySet):
+
+    def for_user(self, user):
+        return self.filter(user=user)
