@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 from hostel.decorators import rendered
 from models import Task, TaskType, Occurrence
 from forms import TaskForm
@@ -29,6 +30,7 @@ def task_list(request):
         'object_list': object_list,
     }
 
+@login_required
 @rendered
 def task_add(request):
     if request.method == 'POST':
