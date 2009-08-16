@@ -16,7 +16,7 @@ def user_task_list(request, username, month=None, year=None):
         now = date.today()
         month, year = now.month, now.year
     user = get_object_or_404(User, username=username)
-    tasks = Occurrence.objects.for_user(user).group_by_day()
+    tasks = Occurrence.objects.for_user(user).month(month).group_by_day()
     return 'schedule/user_task_list.html', {
         'tasks': tasks,
         'date_obj': date(year, month, 1)
