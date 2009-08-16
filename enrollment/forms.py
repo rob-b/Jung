@@ -10,7 +10,8 @@ class EnrollmentForm(RegistrationFormUniqueEmail):
     def clean_username(self):
         username = super(EnrollmentForm, self).clean_username()
         for pattern in urls.urlpatterns:
-            if pattern.resolve(username+'/'):
-                msg = _('This username is already taken. Please choose another')
+            if pattern.name != 'profiles_profile_detail' and \
+               pattern.resolve(username+'/'):
+                msg = _('????This username is already taken. Please choose another')
                 raise forms.ValidationError(msg)
         return username
