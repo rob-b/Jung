@@ -1,7 +1,7 @@
 from django.conf.urls.defaults import *
 from django.core.urlresolvers import reverse
+from enrollment.forms import EnrollmentForm
 
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
@@ -18,14 +18,24 @@ urlpatterns = patterns('',
         {'url': '/employees/'},
         name='worker_homepage'),
 
+    # user login and logout
+    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
+    url(r'^register/$',
+       'registration.views.register',
+       {'form_class': EnrollmentForm},
+       name='registration_register'),
+
     # mount the registration app under /employees
     (r'^employees/', include('enrollment.urls')),
     (r'^employees/', include('workers.urls')),
     (r'^skills/', include('workers.urls.skills')),
-    (r'^schedules/', include('schedule.urls')),
     (r'^projects/', include('policy.urls')),
-    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
+)
+
+urlpatterns += patterns('',
+    (r'^tasks/', include('schedule.urls.tasks')),
+    (r'^schedules/', include('schedule.urls')),
 )
 
 from django.conf import settings
