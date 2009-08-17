@@ -35,10 +35,32 @@ class Task(models.Model):
     user = models.ForeignKey('auth.user', verbose_name=_('User'))
     task_type = models.ForeignKey('schedule.TaskType',
                                    verbose_name=_('Task type'))
+    project = models.ForeignKey('policy.Project', verbose_name=_('Project'))
+
+    NEW, OPEN, RESOLVED, CLOSED, CONFLICT, LATE = range(6)
+    STATUS_CHOICES = (
+        (NEW, _('New')),
+        (OPEN, _('Open')),
+        (RESOLVED, _('Resolved')),
+        (CLOSED, _('Closed')),
+        (CONFLICT, _('Conflict')),
+        (LATE, _('Late')),
+    )
+    status = models.SmallIntegerField(_('status'),
+                                      default=NEW,
+                                      choices=STATUS_CHOICES)
     objects = TaskManager.as_manager()
 
     def __unicode__(self):
         return self.title
+
+    @property
+    def account(self):
+        return self.project.account
+
+    @property
+    def programme(self):
+        return self.project.programme
 
     def add_occurrences(self, start_time, end_time, **rrule_params):
         '''

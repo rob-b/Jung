@@ -65,3 +65,6 @@ class Project(PolicyModel):
     @models.permalink
     def get_absolute_url(self):
         return ('policy_project_detail', [self.slug])
+
+    def __unicode__(self):
+        return u'%s (%s)' % (self.name, self.account.name)
