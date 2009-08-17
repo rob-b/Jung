@@ -209,21 +209,29 @@ tr:last-child { border-bottom: 2px solid #ffffff; }
 td {
   border: 2px solid #ffffff;
   border-bottom: 0;
-  padding: 10px;
   width: 75px;
   height: 150px;
 }
 td.noday { background: #f0f7da; }
-td.today {
-  color: orange;
-  background: #f4f9e4;
-}
+td.today { background: #f4f9e4; }
 td h4 {
   font-family: "Berthold Baskerville", Baskerville, Georgia, serif;
   font-weight: normal;
   letter-spacing: 1px;
+  padding: 5px 10px;
 }
 td.history { color: #888888; }
+td ol { list-style-type: none; }
+td ol li {
+  margin-left: 0;
+  background: #009900;
+  background: #bfe5bf;
+  font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
+  padding-left: 5px;
+  border-bottom: 1px solid #f0f7da;
+}
+td.today { color: orange; }
+td.today ol li { color: orange; }
 .clearfix:after {
   clear: both;
   content: '.';

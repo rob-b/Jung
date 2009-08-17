@@ -319,7 +319,6 @@ tr:last-child {
 td {
     border: 2px solid #fff;
     border-bottom: 0;
-    padding: 10px;
     /* background: #f4f9e4; */
     width: 75px;
     height: 150px;
@@ -328,14 +327,29 @@ td.noday {
     background: #f0f7da;
 }
 td.today {
-    color: orange;
     background: #f4f9e4;
 }
 td h4 {
     .serif-stack;
+    padding: 5px 10px;
 }
 td.history {
     color: #888;
+}
+td ol {
+    list-style-type: none;
+}
+td ol li {
+    margin-left: 0;
+    background: #009900;
+    background: #bfe5bf;
+    .sans-serif-stack;
+    padding-left: 5px;
+    border-bottom: 1px solid #f0f7da;
+}
+td.today,
+td.today ol li {
+    color: orange;
 }
 
 /* http://www.positioniseverything.net/easyclearing.html */
