@@ -58,6 +58,10 @@ class Task(models.Model):
     def account(self):
         return self.project.account
 
+    @property
+    def programme(self):
+        return self.project.programme
+
     def add_occurrences(self, start_time, end_time, **rrule_params):
         '''
         Add one or more occurences to the task using a comparable API to
