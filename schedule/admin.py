@@ -12,6 +12,7 @@ class OccurrenceInline(admin.StackedInline):
 class TaskAdmin(admin.ModelAdmin):
     inlines = [OccurrenceInline]
     prepopulated_fields = {'slug': ('title',)}
+    list_display = '__unicode__', 'project', 'account'
 
 admin.site.register(Task, TaskAdmin)
 admin.site.register(TaskType)
