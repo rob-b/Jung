@@ -35,6 +35,7 @@ class Task(models.Model):
     user = models.ForeignKey('auth.user', verbose_name=_('User'))
     task_type = models.ForeignKey('schedule.TaskType',
                                    verbose_name=_('Task type'))
+    project = models.ForeignKey('policy.Project', verbose_name=_('Project'))
     objects = TaskManager.as_manager()
 
     def __unicode__(self):
