@@ -7,7 +7,7 @@ from hostel.decorators import rendered
 from models import Task, TaskType, Occurrence
 from forms import TaskForm
 from utils import TaskCalendar
-from datetime import date
+from datetime import date, datetime
 from calendar import Calendar
 from workers.models import Employee
 
@@ -58,7 +58,8 @@ def task_add(request):
 @rendered
 def user_task_list(request, username):
     user = get_object_or_404(Employee, user__username=username)
-    tasks = Task.objects.for_user(user)
+    dt = datetime.now()
+    tasks = Task.objects.before(dt).for_user(user)
     return 'schedule/user_task_list.html', {
         'object_list': tasks,
         'profile': user,

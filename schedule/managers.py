@@ -26,3 +26,9 @@ class TaskManager(QuerySet):
 
     def for_user(self, user):
         return self.filter(user=user)
+
+    def before(self, dt):
+        return self.filter(occurrence__start_time__lt=dt).distinct()
+
+    def after(self, dt):
+        return self.filter(occurrence__start_time__gt=dt).distinct()
