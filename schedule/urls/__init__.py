@@ -11,4 +11,6 @@ urlpatterns = patterns('schedule.views',
         name='schedule_schedule_list'),
     url(r'^(?P<username>[-\w]+)/$',
         'user_schedule', name='schedule_user_schedule'),
+    url(r'^(?P<username>[-\w]+)/(?P<month>\w{3})/$',
+        'user_schedule', name='schedule_user_schedule_month'),
 )
