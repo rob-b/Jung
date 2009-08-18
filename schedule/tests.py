@@ -6,7 +6,6 @@ from datetime import datetime
 import dateutil
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
-from views import task_list
 from forms import OccurrenceForm, TaskForm
 
 class ScheduleTest(TestCase):
