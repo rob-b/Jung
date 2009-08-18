@@ -1,6 +1,7 @@
 from django import template
 from django.utils.safestring import mark_safe
-from datetime import date
+from django.core.urlresolvers import reverse
+from datetime import date, timedelta
 from calendar import Calendar
 from calendar import day_abbr
 from schedule.utils import TaskCalendar
@@ -68,4 +69,21 @@ def calendar(tasks, date_obj=date.today()):
     return {
         'weeks': weeks,
         'date_obj': date_obj,
+    }
+
+nextmonth = lambda dt: date(dt.year, dt.month, 1) + timedelta(days=31)
+prevmonth = lambda dt: date(dt.year, dt.month, 1) - timedelta(days=31)
+
+@register.inclusion_tag('schedule/task_links.html')
+def task_navigation(user, dt):
+    next = nextmonth(dt)
+    prev = prevmonth(dt)
+    next = reverse('schedule_user_schedule_month',
+                   kwargs=dict(username=user.username, month=next.strftime('%b')))
+    prev = reverse('schedule_user_schedule_month',
+                   kwargs=dict(username=user.username, month=prev.strftime('%b')))
+    return {
+        'prev_month': prev,
+        'next_month': next,
+        'user': user,
     }
