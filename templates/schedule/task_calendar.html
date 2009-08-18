@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <table class="month">
     <tr><th colspan="7" class="month">{{ date_obj|date:"F Y " }}</th></tr>
     <tr><th class="mon">Mon</th><th class="tue">Tue</th><th class="wed">Wed</th><th class="thu">Thu</th><th class="fri">Fri</th><th class="sat">Sat</th><th class="sun">Sun</th></tr>
@@ -11,8 +13,11 @@
             <h4>{{ day.day }}</h4>
             {% if day.tasks %}
             <ol>
-            {% for task in day.tasks %}
-            <li>{{ task.task.title }}</li>
+            {% for occurrence in day.tasks %}
+                <li>
+                {{ occurrence.duration.hours }}{% trans 'hrs' %} &gt;
+                {{ occurrence.task.project }}
+                </li>
             {% endfor %}
             </ol>
             {% endif %}

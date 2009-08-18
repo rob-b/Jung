@@ -5,6 +5,8 @@
             <div id="content">
                 <h2>{% trans 'Task List' %}</h2>
                 <div class="clearfix" id="inner">
+                    
+                    {% task_navigation owner date_obj %}
                     {% calendar tasks date_obj %}
                     <hr>
                 </div>
