@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from hostel.models import MarkdownField
 from django_extensions.db.fields import AutoSlugField
-from dateutil import rrule
+from dateutil import rrule, relativedelta
 from managers import OccurrenceManager, TaskManager
 
 
@@ -103,6 +103,10 @@ class Occurrence(models.Model):
 
     def __unicode__(self):
         return u'%s at %s' % (self.task.title, self.start_time)
+
+    def duration(self):
+        return relativedelta.relativedelta(self.end_time,
+                                           self.start_time)
 
 
     class Meta:
