@@ -7,39 +7,15 @@ from hostel.decorators import rendered
 from models import Task, TaskType, Occurrence
 from forms import TaskForm
 from utils import TaskCalendar
+from decorators import parse_args
 from datetime import date, datetime
 from calendar import Calendar
 from workers.models import Employee
-from datetime import datetime
-from functools import wraps
-
-def parse_args(f):
-    @wraps(f)
-    def wrapper(request, username, month=None, year=None):
-        try:
-            dt = datetime.strptime(month, '%b')
-        except (ValueError, TypeError):
-            month = datetime.now().month
-        else:
-            month = dt.month
-        try:
-            dt = datetime.strptime(year, '%Y')
-        except (ValueError, TypeError):
-            year = datetime.now().year
-        else:
-            year = dt.year
-        return f(request, username, month, year)
-    return wrapper
 
 
 @rendered
 @parse_args
 def user_schedule(request, username, month=None, year=None):
-    # if month is None or year is None:
-    #     now = date.today()
-    # month = now.month if month is None else int(month)
-    # year = now.year if year is None else int(year)
-
     user = get_object_or_404(User, username=username)
     tasks = Occurrence.objects.for_user(user).month(month).group_by_day()
     return 'schedule/user_schedule.html', {
