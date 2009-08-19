@@ -3,5 +3,5 @@
 settings_local.py
 attachments
 jung.db
-assets/all.*
-settings/local.py
+jung/assets/all.*
+jung/settings/local.py
