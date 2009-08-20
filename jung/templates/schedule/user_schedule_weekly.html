@@ -1,0 +1,15 @@
+{% extends "schedule/base.html" %}
+{% load i18n schedule_tags %}
+
+            {% block content %}
+            <div id="content">
+                <h2>{% trans 'Weekly' %}</h2>
+                <div class="clearfix" id="inner">
+                    {% for task in objec_list %}
+                        {{ task }}
+                    {% endfor %}
+                    <hr>
+                </div>
+            </div>
+            {% endblock content %}
+
