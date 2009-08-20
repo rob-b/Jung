@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from hostel.decorators import rendered
 from models import Project
 
@@ -9,6 +10,8 @@ def project_list(request):
 
 @rendered
 def project_detail(request, slug):
-    return 'base.html', {
+    project = get_object_or_404(Project, slug=slug)
+    return 'policy/project_detail.html', {
+        'project': project,
     }
 
