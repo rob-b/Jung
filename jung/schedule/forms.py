@@ -88,7 +88,7 @@ class TaskForm(forms.ModelForm):
 
     task_type = forms.ModelChoiceField(queryset=TaskType.objects.all())
     user = forms.ModelChoiceField(queryset=User.objects.filter(is_active=True),
-                                  required=False,
+                                  required=True,
                                   label=_('User'),
                                   help_text=_('Who this task will be'
                                               ' assigned to'))

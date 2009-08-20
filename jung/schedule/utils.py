@@ -36,3 +36,10 @@ def first_of_the_week(dt):
     except AttributeError:
         pass
     return dt + timedelta(days=-dt.weekday())
+
+def week_starting(dt):
+    monday = first_of_the_week(dt)
+    week = [monday]
+    for day in range(1,7):
+        week.append(monday + timedelta(days=+day))
+    return week

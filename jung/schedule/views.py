@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from hostel.decorators import rendered
 from models import Task, TaskType, Occurrence
 from forms import TaskForm
-from utils import TaskCalendar, first_of_the_week
+from utils import TaskCalendar, week_starting
 from decorators import parse_args
 from datetime import date, datetime
 from calendar import Calendar
@@ -70,13 +70,11 @@ def user_task_list(request, username):
 def user_weekly_schedule(request, username):
     user = get_object_or_404(Employee, user__username=username)
     dt = datetime.now()
-    tasks = Task.objects.week_of(dt).for_user(user)
-    weeks = Calendar().monthdayscalendar(dt.year, dt.month)
-    week = [we for we in weeks if dt.day in we][0]
-    first_day = first_of_the_week(dt)
-    # we have the first day of the week. just calculate the next 6 days
-    import ipdb; ipdb.set_trace();
+    events = Occurrence.objects.week_of(dt).for_user(user).group_by_day()
+    week = []
+    for day in week_starting(dt):
+        week.append([day, events.get(day.day, [])])
     return 'schedule/user_schedule_weekly.html', {
-        'object_list': tasks,
+        'object_list': week,
         'profile': user,
     }
