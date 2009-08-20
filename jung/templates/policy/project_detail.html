@@ -1,0 +1,36 @@
+{% extends 'policy/base.html' %}
+{% load i18n thumbnail typogrify tags %}
+
+{% block title %}{% trans 'Projects' %}{% endblock title %}
+
+                {% block content %}
+                <div id="content">
+                    <h2>{{ project.name }}</h2>
+                    <div class="project-detail clearfix">
+                        <div>
+                            <h3>
+                                A
+                                <a href="{{ project.account.get_asolute_url }}">{{ project.account }}</a>
+                                Project
+                            </h3>
+                            {{ project.description_html }}
+                        </div>
+
+                        <div>
+                            <h3>{% trans 'Working on this Project' %}</h3>
+                            <ul class="clearfix">
+                                {% for label, user in project.user_relations %}
+                                {% with user.get_profile as profile %}
+                                <li>
+                                <a href="{{ user.get_profile.get_absolute_url }}">{{ profile.full_name }}</a> {{ label }}
+                                </li>
+                                {% endwith %}
+                                {% empty %}
+                                <li>{% trans 'This project is running without human intervention' %}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endblock content %}
+
