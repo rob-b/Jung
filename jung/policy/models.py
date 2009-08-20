@@ -68,3 +68,6 @@ class Project(PolicyModel):
 
     def __unicode__(self):
         return u'%s (%s)' % (self.name, self.account.name)
+
+    class Meta:
+        ordering = ['name']
