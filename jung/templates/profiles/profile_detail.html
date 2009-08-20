@@ -40,7 +40,18 @@
                             {% endfor %}
                         </ol>
                         <h3>{% trans 'Schedule' %}</h3>
-                        <a href="{% url schedule_user_schedule profile.user.username %}">{% trans 'Schedule' %}</a>
+                        <ol>
+                            <li>
+                                <a href="{% url schedule_user_schedule profile.user.username %}">
+                                    {% trans 'Monthly' %}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url schedule_user_schedule_week profile.user.username %}">
+                                    {% trans 'Weekly' %}
+                                </a>
+                            </li>
+                        </ol>
                     </div>
                     <hr>
                 </div>
