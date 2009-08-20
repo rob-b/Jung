@@ -164,6 +164,7 @@ ol.skills li {
     display: table-cell;
     vertical-align: middle;
 }
+.project-detail > div,
 .skill-detail > div,
 .user-detail > div {
     margin-bottom: 20px;
@@ -321,7 +322,7 @@ td {
     border-bottom: 0;
     /* background: #f4f9e4; */
     width: 75px;
-    height: 150px;
+    min-height: 120px;
 }
 td.noday {
     background: #f0f7da;
@@ -338,6 +339,7 @@ td.history {
 }
 td ol {
     list-style-type: none;
+    margin-bottom: 0;
 }
 td ol li {
     margin-left: 0;
@@ -346,10 +348,22 @@ td ol li {
     .sans-serif-stack;
     padding-left: 5px;
     border-bottom: 1px solid #f0f7da;
+    font-size: 0.75em;
 }
 td.today,
 td.today ol li {
     color: orange;
+}
+td h3 {
+    margin: 0 auto 1px;
+}
+td h3 a {
+    .serif-stack;
+    font-size: 0.75em;
+}
+.time {
+    display: block;
+    margin-bottom: 5px;
 }
 
 /* http://www.positioniseverything.net/easyclearing.html */

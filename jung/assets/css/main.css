@@ -91,6 +91,13 @@ ol.skills li {
   display: table-cell;
   vertical-align: middle;
 }
+.project-detail > div {
+  margin-bottom: 20px;
+  float: left;
+  display: inline;
+  *margin-left: -0.04em;
+  width: 50%;
+}
 .skill-detail > div {
   margin-bottom: 20px;
   float: left;
@@ -210,7 +217,7 @@ td {
   border: 2px solid #ffffff;
   border-bottom: 0;
   width: 75px;
-  height: 150px;
+  min-height: 120px;
 }
 td.noday { background: #f0f7da; }
 td.today { background: #f4f9e4; }
@@ -221,7 +228,10 @@ td h4 {
   padding: 5px 10px;
 }
 td.history { color: #888888; }
-td ol { list-style-type: none; }
+td ol {
+  list-style-type: none;
+  margin-bottom: 0;
+}
 td ol li {
   margin-left: 0;
   background: #009900;
@@ -229,9 +239,21 @@ td ol li {
   font-family: Helvetica, "Helvetica LT Std", Arial, sans-serif;
   padding-left: 5px;
   border-bottom: 1px solid #f0f7da;
+  font-size: 0.75em;
 }
 td.today { color: orange; }
 td.today ol li { color: orange; }
+td h3 { margin: 0 auto 1px; }
+td h3 a {
+  font-family: "Berthold Baskerville", Baskerville, Georgia, serif;
+  font-weight: normal;
+  letter-spacing: 1px;
+  font-size: 0.75em;
+}
+.time {
+  display: block;
+  margin-bottom: 5px;
+}
 .clearfix:after {
   clear: both;
   content: '.';
