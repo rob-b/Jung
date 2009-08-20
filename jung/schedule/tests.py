@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from models import Task, TaskType, Occurrence
-from datetime import datetime
+from policy.models import Project
+from datetime import datetime, date, timedelta
 import dateutil
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
@@ -11,6 +12,11 @@ from forms import OccurrenceForm, TaskForm
 class ScheduleTest(TestCase):
 
     def test_user_schedule(self):
+        project = Project.objects.create(
+            description = 'A nice test project',
+            status = Project.ACTIVE,
+            name = 'Test Project',
+        )
         alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
         bob = User.objects.create_user('bob', 'bob@example.com', 'pass')
 
@@ -20,6 +26,7 @@ class ScheduleTest(TestCase):
             author=alice,
             user=bob,
             task_type=et,
+            project=project,
         )
         start = datetime.now()
         end = start + relativedelta(days=+1)
@@ -29,8 +36,9 @@ class ScheduleTest(TestCase):
             author=alice,
             user=bob,
             task_type=et,
+            project=project,
         )
-        dest = reverse('schedule_task_list')
+        dest = reverse('schedule_schedule_list')
         response = self.client.get(dest)
 
     def test_occurrence_form(self):
@@ -68,13 +76,22 @@ class ScheduleTest(TestCase):
         self.assertFalse('start_time' in form.errors)
 
     def test_task_form(self):
+        project = Project.objects.create(
+            description = 'A nice test project',
+            status = Project.ACTIVE,
+            name = 'Test Project',
+        )
+        et = TaskType.objects.create(title='some-project')
         alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
         data = {
             'title': 'Write some tests',
             'day': '01/04/2005',
             'start_time': 2,
-            'end_time': 12,
+            'end_time': 2,
             'user': alice.pk,
+            'project': project.pk,
+            'status': Project.ACTIVE,
+            'task_type': et.pk,
         }
         form = TaskForm(data)
         self.assertFalse(form.is_valid())
@@ -92,3 +109,44 @@ class ScheduleTest(TestCase):
                              form.cleaned_data['end_time'],
                              count=form.cleaned_data['count'])
         self.assertEqual(Occurrence.objects.count(), 3)
+
+    def test_week_of_method(self):
+
+        project = Project.objects.create(
+            description = 'A nice test project',
+            status = Project.ACTIVE,
+            name = 'Test Project',
+        )
+        alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
+        bob = User.objects.create_user('bob', 'bob@example.com', 'pass')
+        et = TaskType.objects.create(title='some-project')
+        task = Task.objects.create(
+            title='Task #1',
+            author=alice,
+            user=bob,
+            task_type=et,
+            project=project,
+        )
+
+        # set the start to the begining of the week minus 1 day.
+        start = date.today()
+        start = start + timedelta(days=-(start.weekday() - 1))
+        end = start + relativedelta(days=+1)
+
+        # set the task to occur 5 times, this should be 4 times this week
+        task.add_occurrences(start, end, count=5,)
+
+        dt = date.today()
+        self.assert_(Task.objects.week_of(dt),
+                     "There should be a task available for this week")
+
+        # now go back a week and there should be no tasks
+        dt = date.today()
+        offset = dt.weekday() + 7
+        dt = dt + timedelta(days=-offset)
+        self.assertFalse(Task.objects.week_of(dt))
+
+        # now create a task occurrence a week ago and voila...
+        end = dt + relativedelta(days=+1)
+        task.add_occurrences(dt, end, count=2)
+        self.assert_(Task.objects.week_of(dt))

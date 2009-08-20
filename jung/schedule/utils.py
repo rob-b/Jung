@@ -1,5 +1,5 @@
 from calendar import HTMLCalendar, month_name
-from datetime import date
+from datetime import date, timedelta, time, datetime
 
 class TaskCalendar(HTMLCalendar):
     """
@@ -30,4 +30,9 @@ class TaskCalendar(HTMLCalendar):
             return '<td class="%s"><h4>%d</h4> %s</td>' % (cssclass, day, content)
         return '<td class="noday">&nbsp;</td>'
 
-
+def first_of_the_week(dt):
+    try:
+        dt = dt.date()
+    except AttributeError:
+        pass
+    return dt + timedelta(days=-dt.weekday())
