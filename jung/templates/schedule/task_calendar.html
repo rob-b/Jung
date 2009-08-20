@@ -15,8 +15,7 @@
             <ol>
             {% for occurrence in day.tasks %}
                 <li>
-                {{ occurrence.duration.hours }}{% trans 'hrs' %} &gt;
-                {{ occurrence.task.project }}
+                    {% include "schedule/occurrence_fragment.html" %}
                 </li>
             {% endfor %}
             </ol>

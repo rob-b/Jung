@@ -5,9 +5,30 @@
             <div id="content">
                 <h2>{% trans 'Weekly' %}</h2>
                 <div class="clearfix" id="inner">
-                    {% for task in objec_list %}
-                        {{ task }}
-                    {% endfor %}
+                    <table>
+                    <tr>
+                        {% for day, events in object_list %}
+                        <th class="{{ day|date:"D" }}">
+                            {{ day|date:"D j M" }}
+                        </th>
+                        {% endfor %}
+                    </tr>
+                        <tr>
+                        {% for day, occurrences in object_list %}
+                            <td>
+                                {% if occurrences %}
+                                <ol>
+                                    {% for occurrence in occurrences %}
+                                    <li>
+                                    {% include "schedule/occurrence_fragment.html" %}
+                                    </li>
+                                    {% endfor %}
+                                </ol>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        </tr>
+                    </table>
                     <hr>
                 </div>
             </div>
