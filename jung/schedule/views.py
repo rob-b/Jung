@@ -15,18 +15,20 @@ from itertools import groupby
 
 
 @rendered
-@parse_args
-def user_schedule(request, username, month=None, year=None):
+@args_to_datetime
+def user_schedule(request, username, dt):
+    """All tasks scheduled for this month for a given employee"""
     user = get_object_or_404(User, username=username)
-    tasks = Occurrence.objects.for_user(user).month(month).group_by_day()
+    tasks = Occurrence.objects.for_user(user).month(dt.month).group_by_day()
     return 'schedule/user_schedule.html', {
         'owner': user,
         'tasks': tasks,
-        'date_obj': date(year, month, 1)
+        'date_obj': dt,
     }
 
 @rendered
 def schedule_list(request):
+    """Overview of the number tasks each employee has"""
     object_list = Employee.objects.select_related().all()
     return 'schedule/schedule_list.html', {
         'object_list': object_list,
@@ -35,13 +37,13 @@ def schedule_list(request):
 @login_required
 @rendered
 def task_add(request):
+    """Create a new task and assign it to an employee"""
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
             task.author = request.user
-            user = form.cleaned_data.get('user', request.user)
-            task.user = user
+            task.user = form.cleaned_data.get('user', request.user)
             task.task_type = form.cleaned_data['task_type']
             task.save()
             task.add_occurrences(form.cleaned_data['start_time'],
@@ -59,6 +61,7 @@ def task_add(request):
 
 @rendered
 def user_task_list(request, username):
+    """All pending tasks for a given employee"""
     user = get_object_or_404(Employee, user__username=username)
     dt = datetime.now()
     tasks = Task.objects.before(dt).for_user(user)
