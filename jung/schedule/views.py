@@ -4,13 +4,14 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from hostel.decorators import rendered
-from models import Task, TaskType, Occurrence
-from forms import TaskForm
-from utils import TaskCalendar, week_starting
-from decorators import parse_args
-from datetime import date, datetime
-from calendar import Calendar
+from schedule.models import Task, Occurrence
+from schedule.forms import TaskForm
+from schedule.utils import week_starting
+from schedule.decorators import args_to_datetime
+from datetime import date, time, datetime
 from workers.models import Employee
+from collections import defaultdict
+from itertools import groupby
 
 
 @rendered
@@ -66,15 +67,39 @@ def user_task_list(request, username):
         'profile': user,
     }
 
+def sort_global_schedule(events):
+    field = lambda x: x.task.user
+    schedule = defaultdict(list)
+    for user, occurrence in groupby(events, field):
+        schedule[user.get_profile()] += list(occurrence)
+    return dict(schedule)
+
 @rendered
-def user_weekly_schedule(request, username):
-    user = get_object_or_404(Employee, user__username=username)
-    dt = datetime.now()
-    events = Occurrence.objects.week_of(dt).for_user(user).group_by_day()
-    week = []
-    for day in week_starting(dt):
-        week.append([day, events.get(day.day, [])])
-    return 'schedule/user_schedule_weekly.html', {
-        'object_list': week,
-        'profile': user,
+@args_to_datetime
+def user_weekly_schedule(request, username=None, dt=None):
+    """All tasks scheduled for this week for a given employee"""
+    dt = dt or datetime.now()
+    week = week_starting(dt)
+    if username is None:
+        events = Occurrence.objects.week_of(dt)
+        schedule = sort_global_schedule(events)
+    else:
+        user = get_object_or_404(Employee, user__username=username)
+        events = Occurrence.objects.week_of(dt).for_user(user)
+        schedule = {user: events}
+
+    user_week = {}
+    field = lambda x: x.start_time.day
+    for user, occs in schedule.items():
+        event_days = [(day, list(occs)) for day, occs in groupby(occs, field)]
+        event_days = dict(event_days)
+
+        w = []
+        for day in week:
+            w.append([day, event_days.get(day.day, [])])
+        user_week[user] = w
+    return 'schedule/schedule_weekly.html', {
+        'object_list': user_week,
+        'week': week,
+        'dt': dt,
     }

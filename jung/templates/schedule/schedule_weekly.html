@@ -1,0 +1,46 @@
+{% extends "schedule/base.html" %}
+{% load i18n schedule_tags %}
+
+            {% block content %}
+            <div id="content">
+                <h2>{% trans 'Weekly' %}</h2>
+                <div class="clearfix" id="inner">
+                    <table class="user-schedule">
+                        <tr>
+                            <th colspan="8">{{ dt|date:"F Y" }}</th>
+                        </tr>
+                    <tr>
+                        <th>&nbsp;</th>
+                        {% for day in week %}
+                        <th class="{{ day|date:"D"|lower }}">
+                            {{ day|date:"D j M" }}
+                        </th>
+                        {% endfor %}
+                    </tr>
+                        {% for user, occurrences in object_list.items %}
+                        <tr>
+                            <td>
+                                {{ user.full_name }}
+                            </td>
+                            {% for day, occurrences in occurrences %}
+                            <td>
+                                {% if occurrences %}
+                                <ol>
+                                    {% for occurrence in occurrences %}
+                                    <li>
+                                    {% include "schedule/occurrence_fragment.html" %}
+                                    </li>
+                                    {% endfor %}
+                                </ol>
+                                {% endif %}
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <hr>
+                </div>
+            </div>
+            {% endblock content %}
+
+
