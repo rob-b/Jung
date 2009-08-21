@@ -104,5 +104,5 @@ def weekly_schedule(request, username=None, dt=None):
     return 'schedule/schedule_weekly.html', {
         'object_list': user_week,
         'week': week,
-        'dt': dt,
+        'dt': week[0],
     }

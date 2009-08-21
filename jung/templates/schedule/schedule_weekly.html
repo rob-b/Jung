@@ -7,7 +7,8 @@
                 <div class="clearfix" id="inner">
                     <table class="user-schedule">
                         <tr>
-                            <th colspan="8">{{ dt|date:"F Y" }}</th>
+                            <th colspan="8">{% trans 'Week starting' %} {{ dt|date:"d D F Y" }}</th>
+                            {% weekly_navigation dt %}
                         </tr>
                     <tr>
                         <th>&nbsp;</th>

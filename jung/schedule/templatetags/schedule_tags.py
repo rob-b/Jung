@@ -73,6 +73,8 @@ def calendar(tasks, date_obj=date.today()):
 
 nextmonth = lambda dt: date(dt.year, dt.month, 1) + timedelta(days=31)
 prevmonth = lambda dt: date(dt.year, dt.month, 1) - timedelta(days=31)
+nextweek = lambda dt: date(dt.year, dt.month, dt.day) + timedelta(days=7)
+prevweek = lambda dt: date(dt.year, dt.month, dt.day) - timedelta(days=7)
 
 @register.inclusion_tag('schedule/task_links.html')
 def task_navigation(user, dt):
@@ -87,3 +89,21 @@ def task_navigation(user, dt):
         'next_month': next,
         'user': user,
     }
+
+def formatted(dt):
+    return dict(day=dt.strftime('%d'), month=dt.strftime('%b'), year=dt.year)
+
+@register.inclusion_tag('schedule/weekly_navigation.html')
+def weekly_navigation(dt):
+
+    next = nextweek(dt)
+    prev = prevweek(dt)
+    print dt, next, prev
+
+    next = reverse('schedule_weekly', kwargs=formatted(next))
+    prev = reverse('schedule_weekly', kwargs=formatted(prev))
+    return {
+        'next_week': next,
+        'prev_week': prev,
+    }
+
