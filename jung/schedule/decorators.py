@@ -1,9 +1,10 @@
-from datetime import datetime
+from datetime import datetime, time, date
 from functools import wraps
 
-def parse_args(f):
+def args_to_datetime(f):
     @wraps(f)
-    def wrapper(request, username, month=None, year=None):
+    def wrapper(request, username=None, day=None, month=None, year=None):
+        day = int(day) if day is not None else datetime.now().day
         try:
             dt = datetime.strptime(month, '%b')
         except (ValueError, TypeError):
@@ -16,5 +17,6 @@ def parse_args(f):
             year = datetime.now().year
         else:
             year = dt.year
-        return f(request, username, month, year)
+        dt = datetime.combine(date(year, month, day), time(0))
+        return f(request, username, dt)
     return wrapper
