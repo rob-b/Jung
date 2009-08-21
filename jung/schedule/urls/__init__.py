@@ -9,10 +9,17 @@ urlpatterns = patterns('schedule.views',
     url(r'^$',
         'schedule_list',
         name='schedule_schedule_list'),
-    url(r'^(?P<username>[-\w]+)/$',
-        'user_schedule', name='schedule_user_schedule'),
+
+    url(r'^weekly/$', 'user_weekly_schedule', name='schedule_global_schedule_week'),
+    url(r'^weekly/(?P<day>\w{2})/(?P<month>\w{3})/$', 'user_weekly_schedule', name='schedule_global_schedule_week'),
+    url(r'^weekly/(?P<day>\w{2})/(?P<month>\w{3})/(?P<year>\w{4})/$', 'user_weekly_schedule', name='schedule_global_schedule_week'),
+
     url(r'^(?P<username>[-\w]+)/weekly/$', 'user_weekly_schedule',
         name='schedule_user_schedule_week'),
+
+    url(r'^(?P<username>[-\w]+)/$',
+        'user_schedule', name='schedule_user_schedule'),
+
     url(r'^(?P<username>[-\w]+)/(?P<month>\w{3})/$',
         'user_schedule', name='schedule_user_schedule_month'),
 )
