@@ -93,7 +93,6 @@ class ImageWidget(FileInput):
     """
 
     def render(self, name, value, attrs=None):
-        print value
         return u''
 
 

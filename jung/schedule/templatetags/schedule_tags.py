@@ -98,12 +98,9 @@ def weekly_navigation(dt):
 
     next = nextweek(dt)
     prev = prevweek(dt)
-    print dt, next, prev
-
     next = reverse('schedule_weekly', kwargs=formatted(next))
     prev = reverse('schedule_weekly', kwargs=formatted(prev))
     return {
         'next_week': next,
         'prev_week': prev,
     }
-

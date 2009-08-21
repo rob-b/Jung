@@ -31,7 +31,6 @@ class LoginRequiredMiddleware(object):
         for url in urls:
             try:
                 match = url.resolve(path[1:])
-                print match
                 if match:
                     return False
             except Resolver404:
