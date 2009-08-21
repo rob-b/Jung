@@ -3,8 +3,11 @@
                         <a href="{{ occurrence.task.project.get_absolute_url }}">{{ occurrence.task.project.name }}</a>
                     </h3>
                     <span class="note">{{ occurrence.task.project.account.name }}</span>
+                    {% if occurrence.task.project.programme %}
+                    <span class="note">{{ occurrence.task.project.programme }}</span>
+                    {% endif %}
                     <span class="time">
-                        {{ occurrence.duration.hours }}{% trans 'hrs' %}
+                        {{ occurrence.duration.hours }}{% trans 'h' %}
                     </span>
                     {{ occurrence.task.title }}
 

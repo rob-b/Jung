@@ -8,7 +8,7 @@
                     <table>
                     <tr>
                         {% for day, events in object_list %}
-                        <th class="{{ day|date:"D" }}">
+                        <th class="{{ day|date:"D"|lower }}">
                             {{ day|date:"D j M" }}
                         </th>
                         {% endfor %}
