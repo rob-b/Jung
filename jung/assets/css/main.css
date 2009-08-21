@@ -213,6 +213,10 @@ ul.errorlist li { margin: 20px 0 1px; }
 ul.errorlist li:first-child { margin-top: 0; }
 table { width: 100%; }
 tr:last-child { border-bottom: 2px solid #ffffff; }
+.user-schedule td:first-child {
+  vertical-align: middle;
+  padding-left: 5px;
+}
 td {
   border: 2px solid #ffffff;
   border-bottom: 0;
