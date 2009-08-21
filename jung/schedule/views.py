@@ -79,7 +79,7 @@ def sort_global_schedule(events):
 
 @rendered
 @args_to_datetime
-def user_weekly_schedule(request, username=None, dt=None):
+def weekly_schedule(request, username=None, dt=None):
     """All tasks scheduled for this week for a given employee"""
     dt = dt or datetime.now()
     week = week_starting(dt)
