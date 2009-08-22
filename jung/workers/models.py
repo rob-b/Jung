@@ -77,6 +77,10 @@ class Skill(models.Model):
     def get_absolute_url(self):
         return ('workers_skill_detail', (self.slug,))
 
+
+    class Meta:
+        ordering = ['title']
+
 class Role(models.Model):
     title = models.CharField(max_length=150, unique=True)
     description = MarkdownField()
