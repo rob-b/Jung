@@ -12,6 +12,7 @@ from datetime import date, time, datetime
 from workers.models import Employee
 from collections import defaultdict
 from itertools import groupby
+from policy.models import Project
 
 
 @rendered
@@ -58,6 +59,15 @@ def task_add(request):
     return 'schedule/task_add.html', {
         'form': form,
     }
+
+@login_required
+@rendered
+def task_detail(request, project, slug):
+    task = get_object_or_404(Task, slug=slug, project__slug=project)
+    return 'schedule/task_detail.html', {
+        'task': task,
+    }
+
 
 @rendered
 def user_task_list(request, username):

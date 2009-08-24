@@ -62,6 +62,11 @@ class Task(models.Model):
     def programme(self):
         return self.project.programme
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('schedule_task_detail', (),
+                dict(project=self.project.slug, slug=self.slug))
+
     def add_occurrences(self, start_time, end_time, **rrule_params):
         '''
         Add one or more occurences to the task using a comparable API to
