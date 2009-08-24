@@ -8,11 +8,10 @@ from schedule.models import Task, Occurrence
 from schedule.forms import TaskForm
 from schedule.utils import week_starting
 from schedule.decorators import args_to_datetime
-from datetime import date, time, datetime
+from datetime import datetime
 from workers.models import Employee
 from collections import defaultdict
 from itertools import groupby
-from policy.models import Project
 
 
 @rendered
@@ -63,6 +62,7 @@ def task_add(request):
 @login_required
 @rendered
 def task_detail(request, project, slug):
+    """details on a task"""
     task = get_object_or_404(Task, slug=slug, project__slug=project)
     return 'schedule/task_detail.html', {
         'task': task,
@@ -81,6 +81,8 @@ def user_task_list(request, username):
     }
 
 def sort_global_schedule(events):
+    """build a dict of users as the key and a list of their tasks as the
+    value"""
     field = lambda x: x.task.user
     schedule = defaultdict(list)
     for user, occurrence in groupby(events, field):
