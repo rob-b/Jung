@@ -1,0 +1,25 @@
+{% extends 'schedule/base.html' %}
+{% load i18n thumbnail typogrify tags %}
+
+{% block title %}{{ task.title }}{% endblock title %}
+
+                {% block content %}
+                <div id="content">
+                    <h2>{{ task.title }}</h2>
+                    <div class="clearfix">
+                        <div>
+                            <h3>
+                                {{ task.project }}
+                            </h3>
+                            {% if task.programme %}
+                            <h3>
+                                {{ task.programme }}
+                            </h3>
+                            {% endif %}
+                            {{ task.body_html }}
+                        </div>
+                    </div>
+                </div>
+                {% endblock content %}
+
+
