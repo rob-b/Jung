@@ -124,6 +124,14 @@ class TaskForm(forms.ModelForm):
                 self._errors['end_time'] = forms.util.ErrorList([msg])
                 del data['end_time']
                 return data
+
+            user = data.get('user')
+            events = Occurrence.objects.for_user(user).filter(
+                start_time__range=(start, end),
+            )
+            if events:
+                raise forms.ValidationError(_('Uh oh; that user is already booked'))
+
             data['start_time'] = start
             data['end_time'] = end
             data['day'] = day

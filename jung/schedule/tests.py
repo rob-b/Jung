@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from models import Task, TaskType, Occurrence
 from policy.models import Project
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, time
 import dateutil
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
@@ -74,6 +74,13 @@ class ScheduleTest(TestCase):
         form = OccurrenceForm(data)
         self.assertFalse(form.is_valid())
         self.assertFalse('start_time' in form.errors)
+
+        data = {
+            'start_time': now.replace(hour=12),
+            'end_time': now.replace(hour=11)
+        }
+        form = OccurrenceForm(data)
+        self.assertFalse(form.is_valid())
 
     def test_task_form(self):
         project = Project.objects.create(
@@ -150,3 +157,37 @@ class ScheduleTest(TestCase):
         end = dt + relativedelta(days=+1)
         task.add_occurrences(dt, end, count=2)
         self.assert_(Task.objects.week_of(dt))
+
+    def test_conflict(self):
+        project = Project.objects.create(
+            description = 'A nice test project',
+            status = Project.ACTIVE,
+            name = 'Test Project',
+        )
+        alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
+        bob = User.objects.create_user('bob', 'bob@example.com', 'pass')
+
+        et = TaskType.objects.create(title='some-project')
+        task = Task.objects.create(
+            title='Task #1',
+            author=alice,
+            user=bob,
+            task_type=et,
+            project=project,
+        )
+        start = datetime.combine(date.today(), time(11))
+        end = start + relativedelta(days=+1)
+        task.add_occurrences(start, end, count=3,)
+
+        data = {
+            'title': 'Write some tests',
+            'day': start,
+            'start_time': 11,
+            'end_time': 2,
+            'user': bob.pk,
+            'project': project.pk,
+            'status': Project.ACTIVE,
+            'task_type': et.pk,
+        }
+        form = TaskForm(data)
+        self.assertFalse(form.is_valid())
