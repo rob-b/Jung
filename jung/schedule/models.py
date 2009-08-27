@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from hostel.models import MarkdownField
 from django_extensions.db.fields import AutoSlugField
 from dateutil import rrule, relativedelta
-from managers import OccurrenceManager, TaskManager
+from managers import OccurrenceManager, TaskQuerySet, TaskRelatedManager
 
 
 class Task(models.Model):
@@ -49,7 +49,7 @@ class Task(models.Model):
     status = models.SmallIntegerField(_('status'),
                                       default=NEW,
                                       choices=STATUS_CHOICES)
-    objects = TaskManager.as_manager()
+    objects = TaskQuerySet.as_manager(TaskRelatedManager)
 
     def __unicode__(self):
         return self.title

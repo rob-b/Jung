@@ -2,7 +2,7 @@ from django.db import models
 from datetime import date, timedelta, time, datetime
 from itertools import groupby
 from collections import defaultdict
-from hostel.managers import QuerySet
+from hostel.managers import QuerySet, QSManager
 
 
 class OccurrenceManager(QuerySet):
@@ -35,7 +35,8 @@ class OccurrenceManager(QuerySet):
         # doesn't handle defaultdict well i.e. templates
         return dict(days)
 
-class TaskManager(QuerySet):
+
+class TaskQuerySet(QuerySet):
 
     def for_user(self, user):
         return self.filter(user=user)
@@ -57,3 +58,11 @@ class TaskManager(QuerySet):
         sunday = datetime.combine(sunday, time(0))
         return self.filter(occurrence__end_time__gt=monday,
                            occurrence__start_time__lt=sunday).distinct()
+
+
+class TaskRelatedManager(QSManager):
+
+    def __init__(self, qs_class=TaskQuerySet):
+        """Ensure that related managers use the correct class"""
+        super(TaskRelatedManager, self).__init__(qs_class)
+
