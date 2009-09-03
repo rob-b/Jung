@@ -24,10 +24,16 @@ def get_coverage_modules(app_module):
 
 def test_runner_with_coverage(test_labels, verbosity=1, interactive=True, extra_tests=[]):
     """Custom test runner.  Follows the django.test.simple.run_tests() interface."""
-    coverage.use_cache(0) # Do not cache any of the coverage.py stuff
-    coverage.start()
+    cov = coverage.coverage()
+    cov.use_cache(0) # Do not cache any of the coverage.py stuff
+    cov.exclude('def __unicode__')
+    cov.exclude('def get_absolute_url')
+    cov.start()
     test_results = django_test_runner(test_labels, verbosity, interactive, extra_tests)
-    coverage.stop()
+    cov.stop()
+    report_dir = getattr(settings, 'COVERAGE_REPORT', None)
+    if report_dir is not None:
+        cov.html_report(directory=report_dir)
 
     coverage_modules = []
     if test_labels:
@@ -48,7 +54,7 @@ def test_runner_with_coverage(test_labels, verbosity=1, interactive=True, extra_
         print '----------------------------------------------------------------------'
         print ' Unit Test Code Coverage Results'
         print '----------------------------------------------------------------------'
-        coverage.report(coverage_modules, show_missing=1)
+        cov.report(coverage_modules, show_missing=1)
         # Print code metrics footer
         print '----------------------------------------------------------------------'
     return test_results
