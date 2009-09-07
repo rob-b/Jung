@@ -4,6 +4,7 @@ from hostel.models import MarkdownField
 from django_extensions.db.fields import AutoSlugField
 from dateutil import rrule, relativedelta
 from managers import OccurrenceManager, TaskManager
+from datetime import datetime
 
 
 class Task(models.Model):
@@ -104,6 +105,7 @@ class Occurrence(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     task = models.ForeignKey('schedule.Task', verbose_name=_('task'))
+    created = models.DateTimeField(editable=False, default=datetime.now)
     objects = OccurrenceManager.as_manager()
 
     def __unicode__(self):
