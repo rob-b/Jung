@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from models import Task, TaskType, Occurrence
 from policy.models import Project
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, time
 import dateutil
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
@@ -135,4 +135,36 @@ class ScheduleTest(TestCase):
         self.assert_(Task.objects.week_of(dt))
 
     def test_conflicts(self):
-        pass
+        """Double bookings should be flagged"""
+
+        # add 3 occurences of a task starting today
+        start = datetime.combine(date.today(), time(10))
+        end = start + relativedelta(hours=+4)
+        self.task.add_occurrences(start, end, count=3,)
+
+        task_2 = Task.objects.create(
+            title='Secodary task',
+            author=self.alice,
+            user=self.bob,
+            task_type=self.et,
+            project=self.project,
+        )
+        task_2.add_occurrences(start, end)
+
+        # there should be two occurences that are not conflicted
+        self.assertEqual(2, Occurrence.objects.pristine().count())
+
+        # and another two that are conflicted
+        self.assertEqual(2, Occurrence.objects.conflicted().count())
+
+        # the conflicted occurences are from different tasks
+        first, second = Occurrence.objects.conflicted()
+        self.assertNotEqual(first.task.pk, second.task.pk)
+
+        # the pristine occurences are from the same tasks
+        first, second = Occurrence.objects.pristine()
+        self.assertEqual(first.task.pk, second.task.pk)
+
+    def test_one_day_at_a_time(self):
+        """Can not specifiy an end time for tomorrow"""
+
