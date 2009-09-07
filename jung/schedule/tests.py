@@ -11,32 +11,38 @@ from forms import OccurrenceForm, TaskForm
 
 class ScheduleTest(TestCase):
 
-    def test_user_schedule(self):
-        project = Project.objects.create(
+    def setUp(self):
+        self.project = Project.objects.create(
             description = 'A nice test project',
             status = Project.ACTIVE,
             name = 'Test Project',
         )
-        alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
-        bob = User.objects.create_user('bob', 'bob@example.com', 'pass')
-
-        et = TaskType.objects.create(title='some-project')
-        task = Task.objects.create(
+        self.alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
+        self.bob = User.objects.create_user('bob', 'bob@example.com', 'pass')
+        self.et = TaskType.objects.create(title='some-project')
+        self.task = Task.objects.create(
             title='Task #1',
-            author=alice,
-            user=bob,
-            task_type=et,
-            project=project,
+            author=self.alice,
+            user=self.bob,
+            task_type=self.et,
+            project=self.project,
         )
+
+    def tearDown(self):
+        User.objects.all().delete()
+        Task.objects.all().delete()
+        TaskType.objects.all().delete()
+
+    def test_user_schedule(self):
         start = datetime.now()
         end = start + relativedelta(days=+1)
-        task.add_occurrences(start, end, count=3,)
+        self.task.add_occurrences(start, end, count=3,)
         task2 = Task.objects.create(
             title='The second task',
-            author=alice,
-            user=bob,
-            task_type=et,
-            project=project,
+            author=self.alice,
+            user=self.bob,
+            task_type=self.et,
+            project=self.project,
         )
         dest = reverse('schedule_schedule_list')
         response = self.client.get(dest)
@@ -76,22 +82,15 @@ class ScheduleTest(TestCase):
         self.assertFalse('start_time' in form.errors)
 
     def test_task_form(self):
-        project = Project.objects.create(
-            description = 'A nice test project',
-            status = Project.ACTIVE,
-            name = 'Test Project',
-        )
-        et = TaskType.objects.create(title='some-project')
-        alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
         data = {
             'title': 'Write some tests',
             'day': '01/04/2005',
             'start_time': 2,
             'end_time': 2,
-            'user': alice.pk,
-            'project': project.pk,
+            'user': self.alice.pk,
+            'project': self.project.pk,
             'status': Project.ACTIVE,
-            'task_type': et.pk,
+            'task_type': self.et.pk,
         }
         form = TaskForm(data)
         self.assertFalse(form.is_valid())
@@ -103,7 +102,7 @@ class ScheduleTest(TestCase):
         tt = TaskType.objects.create(title='why?')
         task = form.save(commit=False)
         task.task_type = tt
-        task.author = alice
+        task.author = self.alice
         task.save()
         task.add_occurrences(form.cleaned_data['start_time'],
                              form.cleaned_data['end_time'],
@@ -112,29 +111,13 @@ class ScheduleTest(TestCase):
 
     def test_week_of_method(self):
 
-        project = Project.objects.create(
-            description = 'A nice test project',
-            status = Project.ACTIVE,
-            name = 'Test Project',
-        )
-        alice = User.objects.create_user('alice', 'alice@example.com', 'pass')
-        bob = User.objects.create_user('bob', 'bob@example.com', 'pass')
-        et = TaskType.objects.create(title='some-project')
-        task = Task.objects.create(
-            title='Task #1',
-            author=alice,
-            user=bob,
-            task_type=et,
-            project=project,
-        )
-
         # set the start to the begining of the week minus 1 day.
         start = date.today()
         start = start + timedelta(days=-(start.weekday() - 1))
         end = start + relativedelta(days=+1)
 
         # set the task to occur 5 times, this should be 4 times this week
-        task.add_occurrences(start, end, count=5,)
+        self.task.add_occurrences(start, end, count=5,)
 
         dt = date.today()
         self.assert_(Task.objects.week_of(dt),
@@ -148,5 +131,8 @@ class ScheduleTest(TestCase):
 
         # now create a task occurrence a week ago and voila...
         end = dt + relativedelta(days=+1)
-        task.add_occurrences(dt, end, count=2)
+        self.task.add_occurrences(dt, end, count=2)
         self.assert_(Task.objects.week_of(dt))
+
+    def test_conflicts(self):
+        pass
