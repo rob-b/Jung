@@ -111,6 +111,7 @@ class Occurrence(models.Model):
     def __unicode__(self):
         return u'%s at %s' % (self.task.title, self.start_time)
 
+    @property
     def duration(self):
         return relativedelta.relativedelta(self.end_time,
                                            self.start_time)
