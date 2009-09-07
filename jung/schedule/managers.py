@@ -58,7 +58,7 @@ class OccurrenceManager(QuerySet):
         """Return all occurrences that do not overlap with any other"""
         return self.exclude(
             id__in=self.conflicted().values_list('id', flat=True)
-        )
+        ).extra(select={'conflict': 0})
 
     def get_query_set(self):
         qs = self.pristine() | self.conflicted()
