@@ -6,3 +6,4 @@ jung.db
 jung/assets/all.*
 jung/settings/local.py
 fabfile.py
+coverage_report
