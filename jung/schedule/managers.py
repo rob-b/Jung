@@ -3,7 +3,7 @@ from django.db import connection
 from datetime import date, timedelta, time, datetime
 from itertools import groupby, chain
 from collections import defaultdict
-from hostel.managers import QuerySet
+from hostel.managers import QuerySet, QSManager
 
 
 class OccurrenceManager(QuerySet):
@@ -65,7 +65,7 @@ class OccurrenceManager(QuerySet):
         return qs.order_by(self.model._meta.ordering)
 
 
-class TaskManager(QuerySet):
+class TaskQuerySet(QuerySet):
 
     def for_user(self, user):
         return self.filter(user=user)
@@ -87,3 +87,10 @@ class TaskManager(QuerySet):
         sunday = datetime.combine(sunday, time(0))
         return self.filter(occurrence__end_time__gt=monday,
                            occurrence__start_time__lt=sunday).distinct()
+
+
+class TaskRelatedManager(QSManager):
+
+    def __init__(self, qs_class=TaskQuerySet):
+        """Ensure that related managers use the correct class"""
+        super(TaskRelatedManager, self).__init__(qs_class)
